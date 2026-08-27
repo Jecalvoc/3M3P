@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fábrica de Máquinas Complejas - 100 Máquinas</title>
+<style>
+@import url('https://cdn.jsdelivr.net/fontsource/css/inter@latest/index.css');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0a0e1a 0%, #1a1f3a 50%, #0a0e1a 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.game-header {
+  text-align: center;
+  padding: 20px;
+  background: rgba(10, 14, 26, 0.95);
+  border-bottom: 2px solid #3b82f6;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+.game-header h1 {
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+}
+.game-header .subtitle { font-size: 0.85rem; color: #94a3b8; }
+.progress-bar {
+  width: 350px;
+  height: 10px;
+  background: #1e293b;
+  border-radius: 5px;
+  margin: 10px auto;
+  overflow: hidden;
+  border: 1px solid #334155;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+.progress-text { font-size: 0.75rem; color: #64748b; }
+.game-container {
+  display: grid;
+  grid-template-columns: 300px 1fr 320px;
+  gap: 15px;
+  padding: 15px;
+  max-width: 1500px;
+  margin: 0 auto;
+  min-height: calc(100vh - 130px);
+}
+.panel {
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 12px;
+  border: 1px solid #334155;
+  padding: 15px;
+  backdrop-filter: blur(10px);
+}
+.panel-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.elements-panel { overflow-y: auto; max-height: calc(100vh - 160px); }
+.element-category { margin-bottom: 15px; }
+.category-title {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.element-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.element-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  background: rgba(51, 65, 85, 0.6);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: #e2e8f0;
+  cursor: pointer;
+  font-size: 0.7rem;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+.element-btn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #3b82f6;
+  transform: translateY(-1px);
+}
+.element-btn.selected {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: #60a5fa;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+.element-btn img {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  border-radius: 4px;
+}
+.center-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.combination-area {
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px dashed #475569;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  transition: border-color 0.3s;
+}
+.combination-area.active { border-color: #3b82f6; }
+.slots {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.slot {
+  width: 90px;
+  height: 90px;
+  border: 2px solid #475569;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(30, 41, 59, 0.8);
+  transition: all 0.3s;
+  cursor: pointer;
+  gap: 4px;
+}
+.slot.filled {
+  border-color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+}
+.slot img {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+}
+.slot .slot-label { font-size: 0.6rem; color: #94a3b8; }
+.slot-plus { font-size: 1.5rem; color: #64748b; font-weight: bold; }
+.combine-btn {
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.combine-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+}
+.combine-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.result-area {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.result-image-container {
+  width: 128px;
+  height: 128px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 12px;
+  border: 2px solid #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.result-image-container img {
+  width: 128px;
+  height: 128px;
+  image-rendering: pixelated;
+}
+.result-image-container svg {
+  width: 128px;
+  height: 128px;
+}
+.result-name {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #60a5fa;
+  margin-bottom: 5px;
+}
+.result-desc {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  max-width: 450px;
+  line-height: 1.5;
+}
+.result-category {
+  font-size: 0.75rem;
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.1);
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-top: 10px;
+  display: inline-block;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+}
+.discovery-panel { overflow-y: auto; max-height: calc(100vh - 160px); }
+.discovery-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  margin-bottom: 4px;
+  background: rgba(51, 65, 85, 0.3);
+  border-radius: 8px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+.discovery-item:hover {
+  background: rgba(51, 65, 85, 0.6);
+  border-color: #475569;
+}
+.discovery-item.discovered {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+.discovery-item.undiscovered { opacity: 0.5; }
+.discovery-item .d-img {
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.3);
+}
+.discovery-item .d-name { flex: 1; font-weight: 500; }
+.discovery-item .d-check { color: #22c55e; font-weight: bold; }
+.notification {
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: all 0.4s;
+  z-index: 200;
+  pointer-events: none;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+.notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.notification.fail {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+}
+.hint-btn {
+  padding: 6px 14px;
+  background: rgba(234, 179, 8, 0.2);
+  border: 1px solid #eab308;
+  border-radius: 6px;
+  color: #eab308;
+  font-size: 0.7rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+.hint-btn:hover { background: rgba(234, 179, 8, 0.3); }
+.clear-btn {
+  padding: 6px 14px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  border-radius: 6px;
+  color: #ef4444;
+  font-size: 0.7rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.2s;
+}
+.clear-btn:hover { background: rgba(239, 68, 68, 0.3); }
+.actions-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; }
+.filter-btns { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; }
+.filter-btn {
+  padding: 4px 8px;
+  background: rgba(51, 65, 85, 0.5);
+  border: 1px solid #475569;
+  border-radius: 4px;
+  color: #94a3b8;
+  font-size: 0.65rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.filter-btn.active {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: #3b82f6;
+  color: #60a5fa;
+}
+.combo-display {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+.combo-display img {
+  width: 20px;
+  height: 20px;
+  image-rendering: pixelated;
+  border-radius: 3px;
+}
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+@keyframes sparkleAnim {
+  0% { transform: scale(0) rotate(0deg); opacity: 1; }
+  50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+  100% { transform: scale(0) rotate(360deg); opacity: 0; }
+}
+.sparkle {
+  position: fixed;
+  pointer-events: none;
+  z-index: 300;
+  animation: sparkleAnim 1s ease-out forwards;
+}
+@media (max-width: 1200px) {
+  .game-container {
+    grid-template-columns: 1fr;
+    max-width: 700px;
+  }
+  .elements-panel, .discovery-panel { max-height: 350px; }
+}
+</style>
+</head>
+<body>
+
+<div class="game-header">
+  <h1>️ Fábrica de Máquinas Complejas</h1>
+  <p class="subtitle">Combina máquinas simples, herramientas y elementos naturales para crear 100 máquinas complejas</p>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <p class="progress-text" id="progressText">0 / 100 máquinas descubiertas</p>
+</div>
+
+<div class="notification" id="notification"></div>
+
+<div class="game-container">
+  <div class="panel elements-panel">
+    <div class="panel-title">🧩 Elementos Disponibles</div>
+    <div id="elementsList"></div>
+  </div>
+
+  <div class="center-panel">
+    <div class="panel">
+      <div class="panel-title">🔬 Zona de Combinación</div>
+      <div class="combination-area" id="combinationArea">
+        <div class="slots">
+          <div class="slot" id="slot1" onclick="clearSlot(0)">
+            <span class="slot-label">Elemento 1</span>
+          </div>
+          <span class="slot-plus">+</span>
+          <div class="slot" id="slot2" onclick="clearSlot(1)">
+            <span class="slot-label">Elemento 2</span>
+          </div>
+          <span class="slot-plus">+</span>
+          <div class="slot" id="slot3" onclick="clearSlot(2)">
+            <span class="slot-label">Elemento 3</span>
+          </div>
+        </div>
+        <div class="actions-row">
+          <button class="combine-btn" id="combineBtn" onclick="tryCombine()" disabled>⚡ COMBINAR</button>
+          <button class="clear-btn" onclick="clearAll()">✕ Limpiar</button>
+          <button class="hint-btn" onclick="giveHint()">💡 Pista</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel result-area" id="resultArea">
+      <div class="result-image-container" id="resultImageContainer">
+        <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+          <rect width="128" height="128" fill="#0f172a"/>
+          <text x="64" y="60" text-anchor="middle" fill="#475569" font-size="10" font-family="Inter">Combina elementos</text>
+          <text x="64" y="75" text-anchor="middle" fill="#475569" font-size="9" font-family="Inter">para descubrir</text>
+        </svg>
+      </div>
+      <div class="result-name" id="resultName">Selecciona elementos para combinar</div>
+      <div class="result-desc" id="resultDesc">Elige elementos del panel izquierdo y colócalos en las ranuras para crear una máquina compleja.</div>
+      <div class="result-category" id="resultCategory" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div class="panel discovery-panel">
+    <div class="panel-title">📖 Catálogo (100 Máquinas)</div>
+    <div class="filter-btns">
+      <button class="filter-btn active" onclick="filterDiscoveries('all', this)">Todas</button>
+      <button class="filter-btn" onclick="filterDiscoveries('discovered', this)">Descubiertas</button>
+      <button class="filter-btn" onclick="filterDiscoveries('undiscovered', this)">Ocultas</button>
+    </div>
+    <div id="discoveriesList"></div>
+  </div>
+</div>
+
+<script>
+const elementImages = {
+  lever: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1c442f477-2c79-40a2-915a-2dde2fd1ef2c.png',
+  pulley: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/120882c86-e6bf-4058-9757-8fff60c41a94.png',
+  inclined_plane: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/119fac02b-fd7b-40d1-a9ea-e2e4596ecf6f.png',
+  wedge: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/10f35d895-2630-4481-9e9a-3f4c9005b223.png',
+  screw: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1bd072d62-1cac-430f-af1b-f2625b8f64f5.png',
+  wheel: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1303f8539-391f-45d0-921b-a85682e4072f.png',
+  hammer: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/156ef3caf-8905-4e42-b1cf-7e9119b14046.png',
+  wrench: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1aa597b40-e287-41f9-8393-b723b33f23b4.png',
+  saw: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1e69f56bf-01d5-4977-9523-e620fce669f9.png',
+  rope: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/18f943055-4e40-434a-a91e-0134b22b590f.png',
+  chain: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1f1118ec1-503d-4726-a705-c4963ca63d7f.png',
+  spring: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1d9099cf4-9037-4b36-8dd6-e6b1d024afe4.png',
+  piston: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/16178292c-ef0b-4a92-9aeb-5c432a1531da.png',
+  gear: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1534f3d14-b1f1-43db-aa04-dc14d2bc2ecf.png',
+  water: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1689ee1ea-1ee0-4d09-bca2-5ec97c4ff6aa.png',
+  wind: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1da46d5d2-5434-4493-ba9e-aa43e7da82b0.png',
+  fire: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1632ef401-6485-4542-919f-7bb3a8e3ad9e.png',
+  earth: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/195aea526-bf10-4c63-a72d-f22f8e87e5a5.png',
+  sun: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1bbbcb1aa-566d-48d7-9a36-3d6055ced6fa.png',
+  gravity: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/16ba8f21a-f8ff-4195-9213-8a0dd3b48901.png',
+  steam: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1a38cbfc7-a7a8-41ed-95fc-ef0c68068fc1.png',
+  magnetism: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/138ada42d-84e3-4c87-ab73-d72e40509bc1.png'
+};
+
+const machineImages = {
+  1: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1480ad3d5-b754-4497-afae-e55184dea042.png',
+  2: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1fbaaecd6-fe5b-4c6f-9a4e-a867bc22b309.png',
+  3: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/13710a740-df5c-4d15-b791-64b16227282d.png',
+  4: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1fc9e4f95-1441-4c60-a1cd-a4a21227ccf0.png',
+  5: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/1dce44afd-c8b0-4c28-8b24-64fe73d833c2.png',
+  6: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/12fa8355b-7edc-4e75-bc62-144e216bf0e3.png',
+  7: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/12c858288-b38e-4ea7-9ba5-8165179f7583.png',
+  8: 'https://image.qwenlm.ai/public_source/2737d733-f6ff-4cef-b745-92935c630441/120b1a27c-d7f3-45ae-817a-cb8a613a7330.png'
+};
+
+const elements = {
+  simple_machines: [
+    { id: 'lever', name: 'Palanca', icon: '⚖️' },
+    { id: 'pulley', name: 'Polea', icon: '' },
+    { id: 'inclined_plane', name: 'Plano Incl.', icon: '📐' },
+    { id: 'wedge', name: 'Cuña', icon: '' },
+    { id: 'screw', name: 'Tornillo', icon: '' },
+    { id: 'wheel', name: 'Rueda/Eje', icon: '☸️' },
+  ],
+  tools: [
+    { id: 'hammer', name: 'Martillo', icon: '🔨' },
+    { id: 'wrench', name: 'Llave', icon: '🔧' },
+    { id: 'saw', name: 'Sierra', icon: '🪚' },
+    { id: 'rope', name: 'Cuerda', icon: '🪢' },
+    { id: 'chain', name: 'Cadena', icon: '⛓️' },
+    { id: 'spring', name: 'Resorte', icon: '🌀' },
+    { id: 'piston', name: 'Pistón', icon: '🔲' },
+    { id: 'gear', name: 'Engranaje', icon: '️' },
+  ],
+  natural: [
+    { id: 'water', name: 'Agua', icon: '💧' },
+    { id: 'wind', name: 'Viento', icon: '💨' },
+    { id: 'fire', name: 'Fuego', icon: '🔥' },
+    { id: 'earth', name: 'Tierra', icon: '' },
+    { id: 'sun', name: 'Sol', icon: '☀️' },
+    { id: 'gravity', name: 'Gravedad', icon: '🌑' },
+    { id: 'steam', name: 'Vapor', icon: '♨️' },
+    { id: 'magnetism', name: 'Magnetismo', icon: '🧲' },
+  ]
+};
+
+const machines = [
+  { id: 1, name: 'Grúa', combo: ['pulley','lever','rope'], category: 'Construcción', desc: 'Eleva cargas pesadas usando poleas y palancas con cuerda.' },
+  { id: 2, name: 'Catapulta', combo: ['lever','spring','earth'], category: 'Mecánica', desc: 'Lanza proyectiles con la fuerza de una palanca y resorte.' },
+  { id: 3, name: 'Molino de Agua', combo: ['wheel','water','lever'], category: 'Energía', desc: 'Aprovecha la corriente del agua para girar la rueda.' },
+  { id: 4, name: 'Molino de Viento', combo: ['wheel','wind','gear'], category: 'Energía', desc: 'Captura la energía eólica con aspas y engranajes.' },
+  { id: 5, name: 'Taladro', combo: ['screw','lever','gear'], category: 'Herramienta', desc: 'Perfora superficies con movimiento rotatorio.' },
+  { id: 6, name: 'Hacha Hidráulica', combo: ['wedge','water','lever'], category: 'Forestal', desc: 'Corta troncos usando la fuerza del agua y cuñas.' },
+  { id: 7, name: 'Bicicleta', combo: ['wheel','chain','gear'], category: 'Transporte', desc: 'Vehículo de dos ruedas con transmisión por cadena.' },
+  { id: 8, name: 'Reloj Mecánico', combo: ['gear','spring','lever'], category: 'Precisión', desc: 'Mide el tiempo con engranajes y resortes precisos.' },
+  { id: 9, name: 'Motor de Vapor', combo: ['fire','water','piston'], category: 'Energía', desc: 'Convierte vapor en movimiento con pistones.' },
+  { id: 10, name: 'Prensa Hidráulica', combo: ['lever','water','piston'], category: 'Industrial', desc: 'Genera fuerza extrema con presión de agua.' },
+  { id: 11, name: 'Ascensor', combo: ['pulley','gear','chain'], category: 'Transporte', desc: 'Transporta personas verticalmente con poleas.' },
+  { id: 12, name: 'Noría', combo: ['wheel','water','rope'], category: 'Agrícola', desc: 'Extrae agua de pozos con rueda y cuerdas.' },
+  { id: 13, name: 'Torno', combo: ['wheel','lever','rope'], category: 'Construcción', desc: 'Enrolla cuerda para elevar objetos pesados.' },
+  { id: 14, name: 'Sierra Mecánica', combo: ['gear','saw','chain'], category: 'Forestal', desc: 'Corta madera automáticamente con cadena dentada.' },
+  { id: 15, name: 'Rampa de Carga', combo: ['inclined_plane','wheel','lever'], category: 'Logística', desc: 'Desplaza mercancía por planos con ruedas.' },
+  { id: 16, name: 'Destornillador Auto.', combo: ['screw','gear','spring'], category: 'Herramienta', desc: 'Atornilla con mecanismo automático de resorte.' },
+  { id: 17, name: 'Acueducto', combo: ['inclined_plane','water','earth'], category: 'Infraestructura', desc: 'Transporta agua por canales elevados.' },
+  { id: 18, name: 'Ariete Hidráulico', combo: ['water','piston','lever'], category: 'Hidráulica', desc: 'Bombea agua usando la presión del flujo.' },
+  { id: 19, name: 'Solar Térmica', combo: ['sun','water','piston'], category: 'Energía', desc: 'Calienta agua con energía solar para generar vapor.' },
+  { id: 20, name: 'Brújula Magnética', combo: ['magnetism','lever','earth'], category: 'Navegación', desc: 'Orienta con el campo magnético terrestre.' },
+  { id: 21, name: 'Eclusa', combo: ['lever','water','inclined_plane'], category: 'Navegación', desc: 'Eleva barcos entre diferentes niveles de agua.' },
+  { id: 22, name: 'Trineo Mecánico', combo: ['inclined_plane','gravity','rope'], category: 'Transporte', desc: 'Desliza por pendientes usando gravedad y cuerdas.' },
+  { id: 23, name: 'Martillo Piloto', combo: ['hammer','gravity','pulley'], category: 'Construcción', desc: 'Clava pilotes con caída libre guiada.' },
+  { id: 24, name: 'Generador Eólico', combo: ['wind','gear','magnetism'], category: 'Energía', desc: 'Genera electricidad con viento y magnetismo.' },
+  { id: 25, name: 'Destilador Solar', combo: ['sun','water','fire'], category: 'Química', desc: 'Purifica agua evaporándola con calor solar.' },
+  { id: 26, name: 'Telar', combo: ['lever','chain','rope'], category: 'Textil', desc: 'Teje hilos con mecanismos de palanca y cuerdas.' },
+  { id: 27, name: 'Cinta Transportadora', combo: ['wheel','chain','gear'], category: 'Industrial', desc: 'Transporta materiales continuamente.' },
+  { id: 28, name: 'Sifón', combo: ['water','gravity','rope'], category: 'Hidráulica', desc: 'Transfiere líquidos usando gravedad y presión.' },
+  { id: 29, name: 'Cerrojo Automático', combo: ['spring','lever','wedge'], category: 'Seguridad', desc: 'Cierra automáticamente con resortes y cuñas.' },
+  { id: 30, name: 'Horno Solar', combo: ['sun','earth','inclined_plane'], category: 'Energía', desc: 'Cocina concentrando rayos solares.' },
+  { id: 31, name: 'Bomba de Tornillo', combo: ['screw','water','lever'], category: 'Hidráulica', desc: 'Eleva agua con tornillo de Arquímedes.' },
+  { id: 32, name: 'Carretilla', combo: ['wheel','lever','gravity'], category: 'Transporte', desc: 'Transporta cargas con rueda y palanca.' },
+  { id: 33, name: 'Polea de Minería', combo: ['pulley','chain','earth'], category: 'Minería', desc: 'Extrae minerales del subsuelo con poleas.' },
+  { id: 34, name: 'Reloj de Sol', combo: ['sun','earth','inclined_plane'], category: 'Precisión', desc: 'Mide el tiempo con la sombra del sol.' },
+  { id: 35, name: 'Pistola de Agua', combo: ['piston','water','spring'], category: 'Hidráulica', desc: 'Dispara agua a presión con pistón y resorte.' },
+  { id: 36, name: 'Energía Geotérmica', combo: ['fire','earth','steam'], category: 'Energía', desc: 'Aprovecha el calor interno de la tierra.' },
+  { id: 37, name: 'Gato Hidráulico', combo: ['piston','water','lever'], category: 'Automotriz', desc: 'Eleva vehículos con presión hidráulica.' },
+  { id: 38, name: 'Cerradura', combo: ['wedge','spring','gear'], category: 'Seguridad', desc: 'Sistema de cierre con levas y resortes.' },
+  { id: 39, name: 'Barco de Vapor', combo: ['steam','wheel','piston'], category: 'Transporte', desc: 'Navega con propulsión a vapor.' },
+  { id: 40, name: 'Irrigador', combo: ['water','gear','sun'], category: 'Agrícola', desc: 'Distribuye agua en cultivos automáticamente.' },
+  { id: 41, name: 'Magneto Generador', combo: ['magnetism','wheel','chain'], category: 'Energía', desc: 'Genera corriente con imanes rotatorios.' },
+  { id: 42, name: 'Montaña Rusa', combo: ['gravity','inclined_plane','wheel'], category: 'Recreación', desc: 'Diversión con gravedad y planos inclinados.' },
+  { id: 43, name: 'Cortadora Laser Solar', combo: ['sun','wedge','gear'], category: 'Industrial', desc: 'Corta materiales concentrando luz solar.' },
+  { id: 44, name: 'Elevador Neumático', combo: ['wind','piston','pulley'], category: 'Transporte', desc: 'Eleva con presión de aire y poleas.' },
+  { id: 45, name: 'Trampa de Gravedad', combo: ['gravity','lever','spring'], category: 'Mecánica', desc: 'Atrapa usando caída gravitacional.' },
+  { id: 46, name: 'Refinería Solar', combo: ['sun','fire','piston'], category: 'Industrial', desc: 'Procesa materiales con calor solar intensificado.' },
+  { id: 47, name: 'Dique', combo: ['earth','water','wedge'], category: 'Infraestructura', desc: 'Contiene corrientes de agua con tierra y cuñas.' },
+  { id: 48, name: 'Tobogán Hidráulico', combo: ['water','inclined_plane','gravity'], category: 'Recreación', desc: 'Desliza por agua en planos inclinados.' },
+  { id: 49, name: 'Electroimán Industrial', combo: ['magnetism','fire','chain'], category: 'Industrial', desc: 'Levanta metales con electromagnetismo.' },
+  { id: 50, name: 'Máquina Universal', combo: ['gear','steam','magnetism'], category: 'Suprema', desc: 'La máquina definitiva que combina todas las fuerzas.' },
+  { id: 51, name: 'Imprenta', combo: ['lever','screw','earth'], category: 'Comunicación', desc: 'Imprime textos usando presión mecánica sobre papel.' },
+  { id: 52, name: 'Telégrafo', combo: ['magnetism','chain','fire'], category: 'Comunicación', desc: 'Transmite mensajes eléctricos a distancia.' },
+  { id: 53, name: 'Teléfono', combo: ['magnetism','spring','fire'], category: 'Comunicación', desc: 'Transmite voz mediante señales eléctricas.' },
+  { id: 54, name: 'Radio', combo: ['magnetism','gear','fire'], category: 'Comunicación', desc: 'Recibe ondas electromagnéticas y las convierte en sonido.' },
+  { id: 55, name: 'Televisión', combo: ['magnetism','gear','sun'], category: 'Comunicación', desc: 'Transmite imágenes y sonido por ondas.' },
+  { id: 56, name: 'Computadora', combo: ['gear','magnetism','fire'], category: 'Tecnología', desc: 'Procesa información mediante circuitos electrónicos.' },
+  { id: 57, name: 'Impresora 3D', combo: ['screw','gear','fire'], category: 'Tecnología', desc: 'Construye objetos capa por capa con material fundido.' },
+  { id: 58, name: 'Drone', combo: ['wind','gear','magnetism'], category: 'Aeronáutica', desc: 'Vuela de forma autónoma con hélices y motores.' },
+  { id: 59, name: 'Submarino', combo: ['water','piston','gear'], category: 'Navegación', desc: 'Navega bajo el agua controlando su flotabilidad.' },
+  { id: 60, name: 'Avión', combo: ['wind','wheel','fire'], category: 'Aeronáutica', desc: 'Vuela usando alas y propulsión a reacción.' },
+  { id: 61, name: 'Cohete', combo: ['fire','piston','gravity'], category: 'Aeronáutica', desc: 'Alcanza el espacio con propulsión a chorro.' },
+  { id: 62, name: 'Satélite', combo: ['magnetism','sun','gear'], category: 'Espacial', desc: 'Orbita la tierra transmitiendo señales.' },
+  { id: 63, name: 'Robot', combo: ['gear','magnetism','spring'], category: 'Tecnología', desc: 'Máquina autónoma con articulaciones mecánicas.' },
+  { id: 64, name: 'Brazo Robótico', combo: ['lever','gear','magnetism'], category: 'Industrial', desc: 'Manipula objetos con precisión automatizada.' },
+  { id: 65, name: 'CNC', combo: ['screw','gear','fire'], category: 'Industrial', desc: 'Corta materiales con control numérico computarizado.' },
+  { id: 66, name: 'Torno Industrial', combo: ['wheel','gear','lever'], category: 'Industrial', desc: 'Da forma a piezas metálicas con rotación.' },
+  { id: 67, name: 'Fresadora', combo: ['screw','gear','wedge'], category: 'Industrial', desc: 'Remueve material con fresas rotatorias.' },
+  { id: 68, name: 'Soldadora', combo: ['fire','lever','earth'], category: 'Industrial', desc: 'Une metales fundiéndolos con calor extremo.' },
+  { id: 69, name: 'Cortadora Plasma', combo: ['fire','wind','wedge'], category: 'Industrial', desc: 'Corta metal con chorro de plasma caliente.' },
+  { id: 70, name: 'Excavadora', combo: ['lever','piston','wheel'], category: 'Construcción', desc: 'Excava tierra con brazo hidráulico articulado.' },
+  { id: 71, name: 'Bulldozer', combo: ['wedge','wheel','fire'], category: 'Construcción', desc: 'Empuja tierra y escombros con hoja frontal.' },
+  { id: 72, name: 'Grúa Móvil', combo: ['pulley','wheel','lever'], category: 'Construcción', desc: 'Eleva cargas pesadas con brazo extensible.' },
+  { id: 73, name: 'Hormigonera', combo: ['wheel','gear','water'], category: 'Construcción', desc: 'Mezcla cemento, arena y agua constantemente.' },
+  { id: 74, name: 'Apisonadora', combo: ['wheel','gravity','earth'], category: 'Construcción', desc: 'Compacta terrenos con rodillo pesado.' },
+  { id: 75, name: 'Tractor', combo: ['wheel','gear','fire'], category: 'Agrícola', desc: 'Arrastra implementos agrícolas con motor potente.' },
+  { id: 76, name: 'Cosechadora', combo: ['wheel','saw','gear'], category: 'Agrícola', desc: 'Corta y recoge cultivos automáticamente.' },
+  { id: 77, name: 'Segadora', combo: ['saw','wheel','lever'], category: 'Agrícola', desc: 'Corta hierba y cultivos con cuchillas rotativas.' },
+  { id: 78, name: 'Arado Mecánico', combo: ['wedge','wheel','lever'], category: 'Agrícola', desc: 'Surca la tierra preparando el suelo para siembra.' },
+  { id: 79, name: 'Sembradora', combo: ['wheel','gear','earth'], category: 'Agrícola', desc: 'Distribuye semillas en surcos preparados.' },
+  { id: 80, name: 'Riego por Aspersión', combo: ['water','gear','wind'], category: 'Agrícola', desc: 'Distribuye agua en lluvia sobre cultivos.' },
+  { id: 81, name: 'Invernadero Auto.', combo: ['sun','water','gear'], category: 'Agrícola', desc: 'Controla clima para cultivo durante todo el año.' },
+  { id: 82, name: 'Incubadora', combo: ['fire','spring','gear'], category: 'Avícola', desc: 'Mantiene temperatura para eclosión de huevos.' },
+  { id: 83, name: 'Pasteurizador', combo: ['fire','water','gear'], category: 'Alimentaria', desc: 'Calienta líquidos para eliminar bacterias.' },
+  { id: 84, name: 'Refrigerador', combo: ['fire','water','piston'], category: 'Electrodoméstico', desc: 'Enfría alimentos con ciclo de compresión.' },
+  { id: 85, name: 'Congelador', combo: ['fire','water','gear'], category: 'Electrodoméstico', desc: 'Mantiene alimentos a temperaturas bajo cero.' },
+  { id: 86, name: 'Licuadora', combo: ['gear','wedge','fire'], category: 'Electrodoméstico', desc: 'Tritura alimentos con cuchillas rotativas.' },
+  { id: 87, name: 'Batidora', combo: ['gear','spring','fire'], category: 'Electrodoméstico', desc: 'Mezcla ingredientes con aspas giratorias.' },
+  { id: 88, name: 'Tostadora', combo: ['fire','spring','lever'], category: 'Electrodoméstico', desc: 'Tuesta pan con resistencias eléctricas.' },
+  { id: 89, name: 'Microondas', combo: ['fire','gear','magnetism'], category: 'Electrodoméstico', desc: 'Calienta alimentos con ondas electromagnéticas.' },
+  { id: 90, name: 'Lavadora', combo: ['wheel','water','gear'], category: 'Electrodoméstico', desc: 'Lava ropa con tambor rotatorio y agua.' },
+  { id: 91, name: 'Secadora', combo: ['wind','fire','wheel'], category: 'Electrodoméstico', desc: 'Seca ropa con aire caliente y rotación.' },
+  { id: 92, name: 'Aspiradora', combo: ['wind','wheel','fire'], category: 'Electrodoméstico', desc: 'Aspira polvo con succión de aire.' },
+  { id: 93, name: 'Ventilador', combo: ['wind','wheel','gear'], category: 'Climatización', desc: 'Circula aire con aspas rotatorias.' },
+  { id: 94, name: 'Aire Acondicionado', combo: ['wind','fire','water'], category: 'Climatización', desc: 'Enfría ambientes con ciclo de refrigeración.' },
+  { id: 95, name: 'Calefactor', combo: ['fire','wind','gear'], category: 'Climatización', desc: 'Calienta espacios con resistencia o combustión.' },
+  { id: 96, name: 'Generador Eléctrico', combo: ['magnetism','wheel','fire'], category: 'Energía', desc: 'Convierte energía mecánica en eléctrica.' },
+  { id: 97, name: 'Transformador', combo: ['magnetism','chain','fire'], category: 'Energía', desc: 'Modifica el voltaje de la corriente eléctrica.' },
+  { id: 98, name: 'Batería', combo: ['magnetism','earth','fire'], category: 'Energía', desc: 'Almacena energía eléctrica químicamente.' },
+  { id: 99, name: 'Motor Eléctrico', combo: ['magnetism','gear','fire'], category: 'Energía', desc: 'Convierte electricidad en movimiento rotatorio.' },
+  { id: 100, name: 'Turbina', combo: ['wind','water','gear'], category: 'Energía', desc: 'Genera energía con fluidos en movimiento.' }
+];
+
+// SVG generators for machines without images
+function getMachineSVG(machine) {
+  const colors = {
+    'Construcción': ['#f59e0b', '#d97706'],
+    'Mecánica': ['#6b7280', '#4b5563'],
+    'Energía': ['#10b981', '#059669'],
+    'Herramienta': ['#64748b', '#475569'],
+    'Forestal': ['#84cc16', '#65a30d'],
+    'Transporte': ['#3b82f6', '#2563eb'],
+    'Precisión': ['#a78bfa', '#8b5cf6'],
+    'Industrial': ['#ef4444', '#dc2626'],
+    'Agrícola': ['#22c55e', '#16a34a'],
+    'Hidráulica': ['#06b6d4', '#0891b2'],
+    'Navegación': ['#0ea5e9', '#0284c7'],
+    'Química': ['#d946ef', '#c026d3'],
+    'Textil': ['#ec4899', '#db2777'],
+    'Seguridad': ['#f97316', '#ea580c'],
+    'Minería': ['#78716c', '#57534e'],
+    'Automotriz': ['#e11d48', '#be123c'],
+    'Recreación': ['#f472b6', '#ec4899'],
+    'Infraestructura': ['#6366f1', '#4f46e5'],
+    'Suprema': ['#fbbf24', '#f59e0b'],
+    'Comunicación': ['#8b5cf6', '#7c3aed'],
+    'Tecnología': ['#06b6d4', '#0891b2'],
+    'Aeronáutica': ['#3b82f6', '#1d4ed8'],
+    'Espacial': ['#1e1b4b', '#312e81'],
+    'Alimentaria': ['#f97316', '#ea580c'],
+    'Electrodoméstico': ['#64748b', '#475569'],
+    'Climatización': ['#0ea5e9', '#0284c7'],
+    'Avícola': ['#eab308', '#ca8a04']
+  };
+  const [c1, c2] = colors[machine.category] || ['#60a5fa', '#3b82f6'];
+  
+  const svgMap = {
+    9: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="20" y="60" width="88" height="40" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="30" y="40" width="20" height="20" fill="${c2}"/><circle cx="40" cy="50" r="8" fill="#1e293b"/><rect x="60" y="30" width="30" height="30" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M75 30 L75 15 L85 15" stroke="#94a3b8" stroke-width="3" fill="none"/><circle cx="80" cy="12" r="5" fill="#ef4444"/><rect x="10" y="100" width="20" height="15" rx="3" fill="${c2}"/><rect x="98" y="100" width="20" height="15" rx="3" fill="${c2}"/></svg>`,
+    10: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="20" width="68" height="15" rx="3" fill="${c1}"/><rect x="40" y="35" width="12" height="70" fill="${c2}"/><rect x="76" y="35" width="12" height="70" fill="${c2}"/><rect x="20" y="105" width="88" height="12" rx="3" fill="${c1}"/><rect x="45" y="50" width="38" height="30" rx="3" fill="${c2}" stroke="${c1}" stroke-width="2"/><circle cx="64" cy="65" r="10" fill="#1e293b"/></svg>`,
+    11: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="20" y="10" width="12" height="108" fill="${c2}"/><rect x="96" y="10" width="12" height="108" fill="${c2}"/><rect x="32" y="10" width="64" height="12" fill="${c1}"/><rect x="32" y="106" width="64" height="12" fill="${c1}"/><rect x="40" y="30" width="48" height="60" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="50" y="40" width="28" height="20" rx="2" fill="#1e293b"/><line x1="64" y1="22" x2="64" y2="30" stroke="#94a3b8" stroke-width="3"/></svg>`,
+    12: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="60" r="40" fill="none" stroke="${c1}" stroke-width="6"/><line x1="64" y1="20" x2="64" y2="100" stroke="${c2}" stroke-width="4"/><line x1="24" y1="60" x2="104" y2="60" stroke="${c2}" stroke-width="4"/><line x1="36" y1="32" x2="92" y2="88" stroke="${c2}" stroke-width="4"/><line x1="92" y1="32" x2="36" y2="88" stroke="${c2}" stroke-width="4"/><rect x="55" y="55" width="18" height="18" rx="3" fill="${c1}"/><path d="M104 60 Q115 70 104 80" stroke="#3b82f6" stroke-width="4" fill="none"/></svg>`,
+    13: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="30" fill="none" stroke="${c1}" stroke-width="8"/><rect x="58" y="30" width="12" height="68" fill="${c2}"/><path d="M34 64 Q50 50 64 64 Q78 78 94 64" stroke="#92400e" stroke-width="5" fill="none"/></svg>`,
+    14: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="20" y="55" width="88" height="18" rx="3" fill="${c1}"/><circle cx="35" cy="64" r="12" fill="${c2}"/><circle cx="64" cy="64" r="12" fill="${c2}"/><circle cx="93" cy="64" r="12" fill="${c2}"/><path d="M25 55 L30 45 L35 55 M40 55 L45 45 L50 55 M55 55 L60 45 L65 55 M70 55 L75 45 L80 55 M85 55 L90 45 L95 55 M100 55 L105 45 L110 55" stroke="${c2}" stroke-width="3" fill="none"/></svg>`,
+    15: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><polygon points="20,100 110,40 110,100" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="40" cy="105" r="10" fill="${c2}"/><circle cx="90" cy="105" r="10" fill="${c2}"/><rect x="70" y="30" width="25" height="20" rx="2" fill="${c2}"/></svg>`,
+    16: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="55" y="20" width="18" height="70" rx="3" fill="${c1}"/><rect x="45" y="90" width="38" height="20" rx="3" fill="${c2}"/><circle cx="64" cy="100" r="6" fill="#1e293b"/><path d="M55 30 Q45 35 55 40 Q45 45 55 50 Q45 55 55 60" stroke="${c2}" stroke-width="3" fill="none"/></svg>`,
+    17: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M10 80 Q30 60 50 75 Q70 90 90 70 Q110 50 120 65" stroke="#3b82f6" stroke-width="6" fill="none"/><rect x="20" y="75" width="15" height="35" fill="${c1}"/><rect x="50" y="70" width="15" height="40" fill="${c1}"/><rect x="80" y="65" width="15" height="45" fill="${c1}"/><rect x="105" y="60" width="15" height="50" fill="${c1}"/></svg>`,
+    18: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="40" y="30" width="48" height="70" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="50" y="40" width="28" height="20" rx="2" fill="${c2}"/><path d="M64 20 L64 30" stroke="#94a3b8" stroke-width="4"/><path d="M88 60 L110 60 L110 40" stroke="#3b82f6" stroke-width="4" fill="none"/><circle cx="110" cy="38" r="4" fill="#3b82f6"/></svg>`,
+    19: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="30" cy="30" r="15" fill="#eab308"/><line x1="30" y1="10" x2="30" y2="5" stroke="#eab308" stroke-width="3"/><line x1="10" y1="30" x2="5" y2="30" stroke="#eab308" stroke-width="3"/><line x1="50" y1="30" x2="55" y2="30" stroke="#eab308" stroke-width="3"/><rect x="50" y="50" width="60" height="50" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M60 50 L60 30 L80 30 L80 50" stroke="#ef4444" stroke-width="3" fill="none"/></svg>`,
+    20: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="45" fill="none" stroke="${c1}" stroke-width="4"/><circle cx="64" cy="64" r="35" fill="none" stroke="${c2}" stroke-width="2"/><line x1="64" y1="64" x2="64" y2="35" stroke="#ef4444" stroke-width="3"/><line x1="64" y1="64" x2="85" y2="50" stroke="#94a3b8" stroke-width="2"/><circle cx="64" cy="64" r="5" fill="${c1}"/><text x="64" y="25" text-anchor="middle" fill="#eab308" font-size="10" font-weight="bold">N</text></svg>`,
+    21: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="10" y="40" width="30" height="60" fill="${c1}"/><rect x="88" y="40" width="30" height="60" fill="${c1}"/><rect x="40" y="50" width="48" height="40" rx="3" fill="#1e293b" stroke="${c2}" stroke-width="2"/><path d="M10 100 Q64 110 118 100" stroke="#3b82f6" stroke-width="8" fill="none"/><rect x="45" y="60" width="38" height="20" rx="2" fill="${c2}"/></svg>`,
+    22: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><polygon points="20,100 110,40 110,100" fill="#e2e8f0" opacity="0.3"/><rect x="40" y="70" width="50" height="15" rx="5" fill="${c1}"/><circle cx="50" cy="90" r="8" fill="${c2}"/><circle cx="80" cy="90" r="8" fill="${c2}"/><path d="M90 75 L110 60" stroke="#92400e" stroke-width="3"/></svg>`,
+    23: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="55" y="10" width="18" height="50" fill="${c1}"/><rect x="45" y="60" width="38" height="20" rx="3" fill="${c2}"/><rect x="58" y="80" width="12" height="35" fill="${c2}"/><path d="M30 115 L98 115" stroke="#78716c" stroke-width="4"/><circle cx="64" cy="20" r="5" fill="#94a3b8"/></svg>`,
+    24: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="60" y="50" width="8" height="60" fill="${c2}"/><path d="M64 50 L30 20 M64 50 L98 20 M64 50 L20 50 M64 50 L108 50" stroke="${c1}" stroke-width="6" stroke-linecap="round"/><circle cx="64" cy="50" r="8" fill="${c1}"/><path d="M100 30 L110 20 M105 35 L115 25" stroke="#eab308" stroke-width="2"/></svg>`,
+    25: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="30" cy="30" r="12" fill="#eab308"/><path d="M40 40 L70 70" stroke="#eab308" stroke-width="2" stroke-dasharray="4"/><rect x="60" y="60" width="50" height="50" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M70 60 Q75 50 80 60 Q85 50 90 60 Q95 50 100 60" stroke="#94a3b8" stroke-width="2" fill="none"/></svg>`,
+    26: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="20" y="20" width="88" height="88" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><line x1="30" y1="30" x2="30" y2="100" stroke="${c2}" stroke-width="2"/><line x1="50" y1="30" x2="50" y2="100" stroke="${c2}" stroke-width="2"/><line x1="70" y1="30" x2="70" y2="100" stroke="${c2}" stroke-width="2"/><line x1="90" y1="30" x2="90" y2="100" stroke="${c2}" stroke-width="2"/><line x1="20" y1="40" x2="108" y2="40" stroke="#ec4899" stroke-width="1"/><line x1="20" y1="60" x2="108" y2="60" stroke="#ec4899" stroke-width="1"/><line x1="20" y1="80" x2="108" y2="80" stroke="#ec4899" stroke-width="1"/></svg>`,
+    27: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="10" y="50" width="108" height="20" rx="3" fill="${c1}"/><circle cx="25" cy="75" r="10" fill="${c2}"/><circle cx="103" cy="75" r="10" fill="${c2}"/><rect x="40" y="40" width="20" height="15" rx="2" fill="${c2}"/><rect x="70" y="42" width="15" height="13" rx="2" fill="${c2}"/></svg>`,
+    28: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M30 30 Q30 80 64 80 Q98 80 98 30" stroke="#3b82f6" stroke-width="6" fill="none"/><path d="M30 30 L30 20 M98 30 L98 20" stroke="#3b82f6" stroke-width="4"/><circle cx="64" cy="80" r="5" fill="#3b82f6"/><path d="M50 90 Q64 100 78 90" stroke="#94a3b8" stroke-width="2" fill="none"/></svg>`,
+    29: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="40" width="68" height="50" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="50" y="55" width="28" height="20" rx="3" fill="${c2}"/><circle cx="64" cy="65" r="6" fill="#1e293b"/><path d="M40 40 Q40 30 50 30 L78 30 Q88 30 88 40" stroke="${c2}" stroke-width="3" fill="none"/></svg>`,
+    30: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="40" r="20" fill="#eab308"/><path d="M30 70 L98 70 L88 110 L40 110 Z" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M40 110 L88 110" stroke="${c2}" stroke-width="3"/><circle cx="64" cy="85" r="10" fill="#ef4444" opacity="0.7"/></svg>`,
+    31: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M64 20 L64 100" stroke="${c1}" stroke-width="8"/><path d="M50 30 Q64 35 78 30 M50 45 Q64 50 78 45 M50 60 Q64 65 78 60 M50 75 Q64 80 78 75 M50 90 Q64 95 78 90" stroke="${c2}" stroke-width="3" fill="none"/><circle cx="64" cy="110" r="8" fill="#3b82f6"/></svg>`,
+    32: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="35" cy="90" r="18" fill="${c2}" stroke="${c1}" stroke-width="3"/><circle cx="95" cy="90" r="18" fill="${c2}" stroke="${c1}" stroke-width="3"/><path d="M35 90 L60 50 L90 50 L95 90" stroke="${c1}" stroke-width="5" fill="none"/><rect x="50" y="40" width="30" height="15" rx="3" fill="${c1}"/></svg>`,
+    33: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="55" y="10" width="18" height="80" fill="${c2}"/><circle cx="64" cy="25" r="12" fill="none" stroke="${c1}" stroke-width="4"/><path d="M50 90 L78 90 L75 110 L53 110 Z" fill="${c1}"/><circle cx="58" cy="100" r="3" fill="#eab308"/><circle cx="70" cy="100" r="3" fill="#eab308"/><circle cx="64" cy="105" r="3" fill="#eab308"/></svg>`,
+    34: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="50" r="25" fill="#eab308"/><line x1="64" y1="50" x2="64" y2="30" stroke="#1e293b" stroke-width="3"/><line x1="64" y1="50" x2="80" y2="55" stroke="#1e293b" stroke-width="2"/><polygon points="40,100 88,100 75,75 53,75" fill="${c1}" stroke="${c2}" stroke-width="2"/></svg>`,
+    35: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="50" width="60" height="25" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="90" y="55" width="20" height="15" rx="2" fill="${c2}"/><path d="M110 62 L120 62" stroke="#3b82f6" stroke-width="4"/><rect x="40" y="75" width="15" height="30" rx="3" fill="${c2}"/><circle cx="75" cy="62" r="5" fill="#1e293b"/></svg>`,
+    36: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M20 100 Q40 60 64 70 Q88 80 108 40" stroke="#ef4444" stroke-width="4" fill="none"/><circle cx="64" cy="70" r="15" fill="#ef4444" opacity="0.5"/><path d="M50 50 Q55 40 60 50 Q65 40 70 50 Q75 40 80 50" stroke="#f97316" stroke-width="3" fill="none"/><rect x="30" y="100" width="68" height="15" rx="3" fill="${c1}"/></svg>`,
+    37: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="80" width="68" height="25" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="45" cy="105" r="12" fill="${c2}"/><circle cx="83" cy="105" r="12" fill="${c2}"/><rect x="55" y="50" width="18" height="30" fill="${c2}"/><rect x="50" y="40" width="28" height="15" rx="3" fill="${c1}"/></svg>`,
+    38: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="35" y="40" width="58" height="60" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="64" cy="70" r="12" fill="${c2}"/><rect x="58" y="70" width="12" height="20" fill="#1e293b"/><path d="M50 50 L78 50" stroke="${c2}" stroke-width="3"/><circle cx="64" cy="50" r="4" fill="#eab308"/></svg>`,
+    39: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M20 80 Q64 90 108 80 L100 100 L28 100 Z" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="40" y="55" width="48" height="25" rx="3" fill="${c2}"/><rect x="55" y="40" width="18" height="20" fill="${c1}"/><path d="M73 50 Q80 45 85 50" stroke="#94a3b8" stroke-width="2" fill="none"/></svg>`,
+    40: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="30" fill="none" stroke="${c1}" stroke-width="4"/><line x1="64" y1="34" x2="64" y2="94" stroke="${c2}" stroke-width="3"/><line x1="34" y1="64" x2="94" y2="64" stroke="${c2}" stroke-width="3"/><path d="M64 34 L55 20 M64 34 L73 20 M64 94 L55 108 M64 94 L73 108" stroke="#3b82f6" stroke-width="2"/><circle cx="55" cy="20" r="3" fill="#3b82f6"/><circle cx="73" cy="20" r="3" fill="#3b82f6"/></svg>`,
+    41: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="35" fill="none" stroke="${c1}" stroke-width="5"/><path d="M30 64 Q47 30 64 64 Q81 98 98 64" stroke="${c2}" stroke-width="4" fill="none"/><circle cx="64" cy="64" r="10" fill="${c1}"/><path d="M20 40 L30 50 M20 88 L30 78 M108 40 L98 50 M108 88 L98 78" stroke="#eab308" stroke-width="2"/></svg>`,
+    42: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M20 100 Q40 40 64 60 Q88 80 108 30" stroke="${c1}" stroke-width="6" fill="none"/><path d="M20 100 L108 100" stroke="${c2}" stroke-width="3"/><circle cx="40" cy="75" r="6" fill="${c2}"/><circle cx="70" cy="65" r="6" fill="${c2}"/><circle cx="95" cy="50" r="6" fill="${c2}"/></svg>`,
+    43: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="30" cy="30" r="12" fill="#eab308"/><path d="M42 42 L80 80" stroke="#eab308" stroke-width="3" stroke-dasharray="5"/><polygon points="70,70 100,70 100,100 70,100" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M75 75 L95 95 M95 75 L75 95" stroke="#ef4444" stroke-width="2"/></svg>`,
+    44: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="45" y="50" width="38" height="50" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="64" cy="75" r="12" fill="${c2}"/><path d="M55 50 L55 30 M73 50 L73 30" stroke="#94a3b8" stroke-width="3"/><path d="M50 30 Q64 20 78 30" stroke="#94a3b8" stroke-width="3" fill="none"/></svg>`,
+    45: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="30" width="68" height="10" rx="3" fill="${c1}"/><line x1="64" y1="40" x2="64" y2="80" stroke="${c2}" stroke-width="4"/><polygon points="50,80 78,80 70,100 58,100" fill="${c2}"/><circle cx="64" cy="35" r="5" fill="#eab308"/></svg>`,
+    46: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="35" r="18" fill="#eab308"/><path d="M64 53 L64 75" stroke="#eab308" stroke-width="4"/><rect x="40" y="75" width="48" height="35" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M50 85 Q55 75 60 85 Q65 75 70 85 Q75 75 80 85" stroke="#ef4444" stroke-width="2" fill="none"/></svg>`,
+    47: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="10" y="60" width="108" height="40" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M10 60 Q40 50 70 60 Q100 70 118 60" stroke="#3b82f6" stroke-width="5" fill="none"/><polygon points="30,100 50,100 40,80" fill="${c2}"/><polygon points="70,100 90,100 80,80" fill="${c2}"/></svg>`,
+    48: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><polygon points="20,40 110,40 100,100 30,100" fill="#3b82f6" opacity="0.5"/><path d="M30 40 L100 40 L90 100 L38 100 Z" fill="none" stroke="${c1}" stroke-width="3"/><path d="M40 50 Q55 55 70 50 Q85 45 95 50" stroke="#60a5fa" stroke-width="2" fill="none"/><circle cx="60" cy="70" r="8" fill="${c2}"/></svg>`,
+    49: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M40 30 L40 80 Q40 95 55 95 L73 95 Q88 95 88 80 L88 30" fill="none" stroke="${c1}" stroke-width="5"/><rect x="35" y="25" width="15" height="10" fill="#ef4444"/><rect x="78" y="25" width="15" height="10" fill="#3b82f6"/><path d="M30 50 Q20 64 30 78 M98 50 Q108 64 98 78" stroke="#eab308" stroke-width="2" fill="none"/><rect x="50" y="95" width="28" height="15" rx="2" fill="${c2}"/></svg>`,
+    50: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="40" fill="none" stroke="#eab308" stroke-width="3"/><circle cx="64" cy="64" r="30" fill="none" stroke="${c1}" stroke-width="2"/><circle cx="64" cy="64" r="20" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M64 24 L64 104 M24 64 L104 64 M35 35 L93 93 M93 35 L35 93" stroke="${c2}" stroke-width="2"/><circle cx="64" cy="64" r="8" fill="#eab308"/></svg>`
+  };
+
+  if (svgMap[machine.id]) return svgMap[machine.id];
+
+  // Generate generic SVG based on combo
+  const comboIcons = machine.combo.map(c => {
+    const el = Object.values(elements).flat().find(e => e.id === c);
+    return el ? el.icon : '?';
+  });
+  
+  return `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+    <rect width="128" height="128" fill="#0f172a"/>
+    <rect x="15" y="15" width="98" height="98" rx="10" fill="none" stroke="${c1}" stroke-width="2" stroke-dasharray="4"/>
+    <circle cx="64" cy="55" r="25" fill="${c1}" opacity="0.2" stroke="${c1}" stroke-width="2"/>
+    <text x="64" y="62" text-anchor="middle" fill="${c1}" font-size="24">${comboIcons[0]}</text>
+    <circle cx="40" cy="90" r="12" fill="${c2}" opacity="0.3" stroke="${c2}" stroke-width="1.5"/>
+    <text x="40" y="94" text-anchor="middle" fill="${c2}" font-size="12">${comboIcons[1]||''}</text>
+    <circle cx="88" cy="90" r="12" fill="${c2}" opacity="0.3" stroke="${c2}" stroke-width="1.5"/>
+    <text x="88" y="94" text-anchor="middle" fill="${c2}" font-size="12">${comboIcons[2]||''}</text>
+    <text x="64" y="120" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="Inter">${machine.name}</text>
+  </svg>`;
+}
+
+let selectedElements = [null, null, null];
+let discoveredMachines = new Set();
+let currentFilter = 'all';
+
+function init() {
+  renderElements();
+  renderDiscoveries();
+  updateProgress();
+}
+
+function renderElements() {
+  const container = document.getElementById('elementsList');
+  container.innerHTML = '';
+  const categories = {
+    simple_machines: '⚙️ Máquinas Simples',
+    tools: '🔧 Herramientas',
+    natural: '🌿 Elementos Naturales'
+  };
+  for (const [cat, title] of Object.entries(categories)) {
+    const catDiv = document.createElement('div');
+    catDiv.className = 'element-category';
+    catDiv.innerHTML = `<div class="category-title">${title}</div>`;
+    const grid = document.createElement('div');
+    grid.className = 'element-grid';
+    elements[cat].forEach(el => {
+      const btn = document.createElement('button');
+      btn.className = 'element-btn';
+      btn.id = `el-${el.id}`;
+      btn.innerHTML = `<img src="${elementImages[el.id]}" alt="${el.name}"><span>${el.name}</span>`;
+      btn.onclick = () => selectElement(el);
+      grid.appendChild(btn);
+    });
+    catDiv.appendChild(grid);
+    container.appendChild(catDiv);
+  }
+}
+
+function selectElement(el) {
+  const emptySlot = selectedElements.indexOf(null);
+  if (emptySlot === -1) {
+    selectedElements[0] = el;
+    updateSlots();
+    return;
+  }
+  selectedElements[emptySlot] = el;
+  updateSlots();
+}
+
+function updateSlots() {
+  for (let i = 0; i < 3; i++) {
+    const slot = document.getElementById(`slot${i+1}`);
+    if (selectedElements[i]) {
+      slot.className = 'slot filled';
+      slot.innerHTML = `<img src="${elementImages[selectedElements[i].id]}" alt="${selectedElements[i].name}"><span class="slot-label">${selectedElements[i].name}</span>`;
+    } else {
+      slot.className = 'slot';
+      slot.innerHTML = `<span class="slot-label">Elemento ${i+1}</span>`;
+    }
+  }
+  document.querySelectorAll('.element-btn').forEach(btn => btn.classList.remove('selected'));
+  selectedElements.forEach(el => {
+    if (el) {
+      const btn = document.getElementById(`el-${el.id}`);
+      if (btn) btn.classList.add('selected');
+    }
+  });
+  const combineBtn = document.getElementById('combineBtn');
+  combineBtn.disabled = selectedElements.some(e => e === null);
+  document.getElementById('combinationArea').classList.toggle('active', !selectedElements.some(e => e === null));
+}
+
+function clearSlot(index) {
+  selectedElements[index] = null;
+  updateSlots();
+}
+
+function clearAll() {
+  selectedElements = [null, null, null];
+  updateSlots();
+}
+
+function tryCombine() {
+  if (selectedElements.some(e => e === null)) return;
+  const comboIds = selectedElements.map(e => e.id).sort();
+  const machine = machines.find(m => {
+    const mCombo = [...m.combo].sort();
+    return mCombo.length === comboIds.length && mCombo.every((v, i) => v === comboIds[i]);
+  });
+  if (machine) {
+    const isNew = !discoveredMachines.has(machine.id);
+    discoveredMachines.add(machine.id);
+    showResult(machine, isNew);
+    renderDiscoveries();
+    updateProgress();
+    if (isNew) {
+      showNotification(`¡Nueva máquina descubierta: ${machine.name}!`, false);
+      createSparkles();
+    }
+  } else {
+    showNotification('Combinación no válida. ¡Intenta con otros elementos!', true);
+    shakeCombination();
+  }
+}
+
+function showResult(machine, isNew) {
+  document.getElementById('resultName').textContent = `${machine.name}`;
+  document.getElementById('resultDesc').textContent = machine.desc;
+  const catEl = document.getElementById('resultCategory');
+  catEl.textContent = machine.category;
+  catEl.style.display = 'inline-block';
+  
+  const container = document.getElementById('resultImageContainer');
+  if (machineImages[machine.id]) {
+    container.innerHTML = `<img src="${machineImages[machine.id]}" alt="${machine.name}">`;
+  } else {
+    container.innerHTML = getMachineSVG(machine);
+  }
+}
+
+function renderDiscoveries() {
+  const container = document.getElementById('discoveriesList');
+  container.innerHTML = '';
+  machines.forEach(m => {
+    const isDiscovered = discoveredMachines.has(m.id);
+    if (currentFilter === 'discovered' && !isDiscovered) return;
+    if (currentFilter === 'undiscovered' && isDiscovered) return;
+    const item = document.createElement('div');
+    item.className = `discovery-item ${isDiscovered ? 'discovered' : 'undiscovered'}`;
+    let imgHtml = '';
+    if (isDiscovered) {
+      if (machineImages[m.id]) {
+        imgHtml = `<img class="d-img" src="${machineImages[m.id]}" alt="${m.name}">`;
+      } else {
+        const svg = getMachineSVG(m);
+        imgHtml = `<div class="d-img" style="display:flex;align-items:center;justify-content:center;">${svg}</div>`;
+      }
+    } else {
+      imgHtml = `<div class="d-img" style="display:flex;align-items:center;justify-content:center;color:#475569;font-size:16px;">?</div>`;
+    }
+    item.innerHTML = `${imgHtml}<span class="d-name">${isDiscovered ? m.name : '???'}</span>${isDiscovered ? '<span class="d-check">✓</span>' : ''}`;
+    if (isDiscovered) {
+      item.onclick = () => showResult(m, false);
+    }
+    container.appendChild(item);
+  });
+}
+
+function filterDiscoveries(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderDiscoveries();
+}
+
+function updateProgress() {
+  const count = discoveredMachines.size;
+  const pct = (count / 100) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${count} / 100 máquinas descubiertas`;
+}
+
+function giveHint() {
+  const undiscovered = machines.filter(m => !discoveredMachines.has(m.id));
+  if (undiscovered.length === 0) {
+    showNotification('¡Has descubierto todas las máquinas! 🎉', false);
+    return;
+  }
+  const machine = undiscovered[Math.floor(Math.random() * undiscovered.length)];
+  const randomElement = machine.combo[Math.floor(Math.random() * machine.combo.length)];
+  const elData = Object.values(elements).flat().find(e => e.id === randomElement);
+  showNotification(`💡 Pista: "${machine.name}" usa ${elData ? elData.name : randomElement}`, false);
+}
+
+function showNotification(text, isFail) {
+  const notif = document.getElementById('notification');
+  notif.textContent = text;
+  notif.className = 'notification show' + (isFail ? ' fail' : '');
+  setTimeout(() => notif.className = 'notification', 2500);
+}
+
+function shakeCombination() {
+  const area = document.getElementById('combinationArea');
+  area.style.animation = 'none';
+  area.offsetHeight;
+  area.style.animation = 'shake 0.5s ease';
+}
+
+function createSparkles() {
+  for (let i = 0; i < 10; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    sparkle.textContent = ['✨','⭐','💫','🌟'][Math.floor(Math.random()*4)];
+    sparkle.style.left = (Math.random() * window.innerWidth) + 'px';
+    sparkle.style.top = (Math.random() * window.innerHeight * 0.5 + 100) + 'px';
+    sparkle.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 1000);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
