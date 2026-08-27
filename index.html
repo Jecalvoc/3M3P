@@ -13,10 +13,11 @@ body {
   color: #e2e8f0;
   min-height: 100vh;
   overflow-x: hidden;
+  padding-bottom: 140px;
 }
 .game-header {
   text-align: center;
-  padding: 20px;
+  padding: 18px;
   background: rgba(10, 14, 26, 0.95);
   border-bottom: 2px solid #3b82f6;
   position: sticky;
@@ -25,19 +26,19 @@ body {
   backdrop-filter: blur(10px);
 }
 .game-header h1 {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
-.game-header .subtitle { font-size: 0.85rem; color: #94a3b8; }
+.game-header .subtitle { font-size: 0.8rem; color: #94a3b8; }
 .progress-bar {
   width: 350px;
   height: 10px;
   background: #1e293b;
   border-radius: 5px;
-  margin: 10px auto;
+  margin: 8px auto;
   overflow: hidden;
   border: 1px solid #334155;
 }
@@ -47,61 +48,61 @@ body {
   border-radius: 5px;
   transition: width 0.5s ease;
 }
-.progress-text { font-size: 0.75rem; color: #64748b; }
+.progress-text { font-size: 0.72rem; color: #64748b; }
 .game-container {
   display: grid;
-  grid-template-columns: 300px 1fr 320px;
-  gap: 15px;
-  padding: 15px;
+  grid-template-columns: 290px 1fr 310px;
+  gap: 12px;
+  padding: 12px;
   max-width: 1500px;
   margin: 0 auto;
-  min-height: calc(100vh - 130px);
+  min-height: calc(100vh - 270px);
 }
 .panel {
   background: rgba(30, 41, 59, 0.8);
   border-radius: 12px;
   border: 1px solid #334155;
-  padding: 15px;
+  padding: 14px;
   backdrop-filter: blur(10px);
 }
 .panel-title {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 7px;
   border-bottom: 1px solid #334155;
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.elements-panel { overflow-y: auto; max-height: calc(100vh - 160px); }
-.element-category { margin-bottom: 15px; }
+.elements-panel { overflow-y: auto; max-height: calc(100vh - 280px); }
+.element-category { margin-bottom: 12px; }
 .category-title {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #94a3b8;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-weight: 600;
 }
 .element-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 5px;
 }
 .element-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 8px;
+  gap: 5px;
+  padding: 5px 7px;
   background: rgba(51, 65, 85, 0.6);
   border: 1px solid #475569;
   border-radius: 8px;
   color: #e2e8f0;
   cursor: pointer;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   transition: all 0.2s;
   font-family: 'Inter', sans-serif;
 }
@@ -116,39 +117,38 @@ body {
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 .element-btn img {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   image-rendering: pixelated;
   border-radius: 4px;
 }
 .center-panel {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 .combination-area {
   background: rgba(15, 23, 42, 0.6);
   border: 2px dashed #475569;
   border-radius: 12px;
-  padding: 20px;
+  padding: 18px;
   text-align: center;
-  min-height: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 12px;
   transition: border-color 0.3s;
 }
 .combination-area.active { border-color: #3b82f6; }
 .slots {
   display: flex;
-  gap: 15px;
+  gap: 12px;
   align-items: center;
 }
 .slot {
-  width: 90px;
-  height: 90px;
+  width: 85px;
+  height: 85px;
   border: 2px solid #475569;
   border-radius: 12px;
   display: flex;
@@ -158,27 +158,27 @@ body {
   background: rgba(30, 41, 59, 0.8);
   transition: all 0.3s;
   cursor: pointer;
-  gap: 4px;
+  gap: 3px;
 }
 .slot.filled {
   border-color: #60a5fa;
   background: rgba(59, 130, 246, 0.1);
 }
 .slot img {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   image-rendering: pixelated;
 }
-.slot .slot-label { font-size: 0.6rem; color: #94a3b8; }
-.slot-plus { font-size: 1.5rem; color: #64748b; font-weight: bold; }
+.slot .slot-label { font-size: 0.58rem; color: #94a3b8; }
+.slot-plus { font-size: 1.4rem; color: #64748b; font-weight: bold; }
 .combine-btn {
-  padding: 12px 30px;
+  padding: 11px 28px;
   background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   border: none;
   border-radius: 8px;
   color: white;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s;
   font-family: 'Inter', sans-serif;
@@ -198,67 +198,67 @@ body {
 .result-area {
   background: rgba(15, 23, 42, 0.6);
   border-radius: 12px;
-  padding: 20px;
+  padding: 18px;
   text-align: center;
-  min-height: 280px;
+  min-height: 260px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 .result-image-container {
-  width: 128px;
-  height: 128px;
+  width: 120px;
+  height: 120px;
   background: rgba(0,0,0,0.4);
   border-radius: 12px;
   border: 2px solid #334155;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   overflow: hidden;
 }
 .result-image-container img {
-  width: 128px;
-  height: 128px;
+  width: 120px;
+  height: 120px;
   image-rendering: pixelated;
 }
 .result-image-container svg {
-  width: 128px;
-  height: 128px;
+  width: 120px;
+  height: 120px;
 }
 .result-name {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #60a5fa;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
 .result-desc {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: #94a3b8;
   max-width: 450px;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 .result-category {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #a78bfa;
   background: rgba(167, 139, 250, 0.1);
-  padding: 4px 12px;
+  padding: 3px 11px;
   border-radius: 12px;
-  margin-top: 10px;
+  margin-top: 8px;
   display: inline-block;
   border: 1px solid rgba(167, 139, 250, 0.3);
 }
-.discovery-panel { overflow-y: auto; max-height: calc(100vh - 160px); }
+.discovery-panel { overflow-y: auto; max-height: calc(100vh - 280px); }
 .discovery-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px;
-  margin-bottom: 4px;
+  gap: 7px;
+  padding: 7px;
+  margin-bottom: 3px;
   background: rgba(51, 65, 85, 0.3);
   border-radius: 8px;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   cursor: pointer;
   transition: all 0.2s;
   border: 1px solid transparent;
@@ -271,32 +271,34 @@ body {
   background: rgba(59, 130, 246, 0.1);
   border-color: rgba(59, 130, 246, 0.3);
 }
-.discovery-item.undiscovered { opacity: 0.5; }
+.discovery-item.undiscovered { opacity: 0.6; }
 .discovery-item .d-img {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   image-rendering: pixelated;
   border-radius: 4px;
   background: rgba(0,0,0,0.3);
+  flex-shrink: 0;
 }
 .discovery-item .d-name { flex: 1; font-weight: 500; }
 .discovery-item .d-check { color: #22c55e; font-weight: bold; }
 .notification {
   position: fixed;
-  top: 90px;
+  top: 85px;
   left: 50%;
   transform: translateX(-50%) translateY(-20px);
   background: linear-gradient(135deg, #059669, #10b981);
   color: white;
-  padding: 12px 24px;
+  padding: 11px 22px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   opacity: 0;
   transition: all 0.4s;
   z-index: 200;
   pointer-events: none;
   box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  max-width: 90%;
 }
 .notification.show {
   opacity: 1;
@@ -305,40 +307,17 @@ body {
 .notification.fail {
   background: linear-gradient(135deg, #dc2626, #ef4444);
 }
-.hint-btn {
-  padding: 6px 14px;
-  background: rgba(234, 179, 8, 0.2);
-  border: 1px solid #eab308;
-  border-radius: 6px;
-  color: #eab308;
-  font-size: 0.7rem;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.2s;
-  margin-top: 10px;
+.notification.hint {
+  background: linear-gradient(135deg, #d97706, #f59e0b);
 }
-.hint-btn:hover { background: rgba(234, 179, 8, 0.3); }
-.clear-btn {
-  padding: 6px 14px;
-  background: rgba(239, 68, 68, 0.2);
-  border: 1px solid #ef4444;
-  border-radius: 6px;
-  color: #ef4444;
-  font-size: 0.7rem;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.2s;
-}
-.clear-btn:hover { background: rgba(239, 68, 68, 0.3); }
-.actions-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: center; }
-.filter-btns { display: flex; gap: 4px; margin-bottom: 10px; flex-wrap: wrap; }
+.filter-btns { display: flex; gap: 4px; margin-bottom: 8px; flex-wrap: wrap; }
 .filter-btn {
-  padding: 4px 8px;
+  padding: 3px 7px;
   background: rgba(51, 65, 85, 0.5);
   border: 1px solid #475569;
   border-radius: 4px;
   color: #94a3b8;
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   cursor: pointer;
   font-family: 'Inter', sans-serif;
 }
@@ -347,17 +326,202 @@ body {
   border-color: #3b82f6;
   color: #60a5fa;
 }
-.combo-display {
+
+/* Bottom shortcut bar */
+.shortcut-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(10, 14, 26, 0.98);
+  border-top: 2px solid #3b82f6;
+  padding: 10px 15px;
+  z-index: 150;
+  backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.shortcut-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background: rgba(51, 65, 85, 0.6);
+  color: #e2e8f0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.shortcut-btn:hover {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: #3b82f6;
+  transform: translateY(-2px);
+}
+.shortcut-btn.hint { border-color: #eab308; color: #fbbf24; }
+.shortcut-btn.hint:hover { background: rgba(234, 179, 8, 0.2); }
+.shortcut-btn.auto { border-color: #22c55e; color: #4ade80; }
+.shortcut-btn.auto:hover { background: rgba(34, 197, 94, 0.2); }
+.shortcut-btn.reveal { border-color: #a78bfa; color: #c4b5fd; }
+.shortcut-btn.reveal:hover { background: rgba(167, 139, 250, 0.2); }
+.shortcut-btn.danger { border-color: #ef4444; color: #fca5a5; }
+.shortcut-btn.danger:hover { background: rgba(239, 68, 68, 0.2); }
+.shortcut-btn .key {
+  background: rgba(0,0,0,0.4);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.6rem;
+  font-family: monospace;
+  border: 1px solid #475569;
+}
+.shortcut-divider {
+  width: 1px;
+  height: 30px;
+  background: #334155;
+  margin: 0 4px;
+}
+.hint-level-selector {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+.hint-level-btn {
+  padding: 4px 8px;
+  border-radius: 5px;
+  border: 1px solid #eab308;
+  background: rgba(234, 179, 8, 0.1);
+  color: #fbbf24;
+  font-size: 0.62rem;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.hint-level-btn:hover, .hint-level-btn.active {
+  background: rgba(234, 179, 8, 0.3);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 500;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+.modal-overlay.show { display: flex; }
+.modal {
+  background: #1e293b;
+  border: 2px solid #3b82f6;
+  border-radius: 16px;
+  padding: 25px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+.modal h2 {
+  color: #60a5fa;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+.modal-close {
+  float: right;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.modal-close:hover { background: rgba(239, 68, 68, 0.4); }
+.recipe-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+.recipe-card {
+  background: rgba(51, 65, 85, 0.4);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.recipe-card:hover {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+}
+.recipe-card.discovered {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.05);
+}
+.recipe-card .r-name {
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #e2e8f0;
+  margin-bottom: 4px;
+}
+.recipe-card .r-combo {
   display: flex;
   gap: 4px;
-  margin-top: 4px;
+  align-items: center;
+  flex-wrap: wrap;
 }
-.combo-display img {
-  width: 20px;
-  height: 20px;
+.recipe-card .r-combo img {
+  width: 22px;
+  height: 22px;
   image-rendering: pixelated;
   border-radius: 3px;
 }
+.recipe-card .r-combo .plus { color: #64748b; font-size: 0.7rem; }
+.recipe-card .r-cat {
+  font-size: 0.6rem;
+  color: #a78bfa;
+  margin-top: 4px;
+}
+.shortcuts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+.shortcut-info {
+  background: rgba(51, 65, 85, 0.4);
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.shortcut-info .s-key {
+  background: rgba(0,0,0,0.4);
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-weight: bold;
+  color: #60a5fa;
+  border: 1px solid #3b82f6;
+  min-width: 40px;
+  text-align: center;
+}
+.shortcut-info .s-desc {
+  font-size: 0.75rem;
+  color: #cbd5e1;
+}
+
 @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
 @keyframes sparkleAnim {
   0% { transform: scale(0) rotate(0deg); opacity: 1; }
@@ -375,14 +539,15 @@ body {
     grid-template-columns: 1fr;
     max-width: 700px;
   }
-  .elements-panel, .discovery-panel { max-height: 350px; }
+  .elements-panel, .discovery-panel { max-height: 300px; }
+  .recipe-list { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
 <div class="game-header">
-  <h1>️ Fábrica de Máquinas Complejas</h1>
+  <h1>⚙️ Fábrica de Máquinas Complejas</h1>
   <p class="subtitle">Combina máquinas simples, herramientas y elementos naturales para crear 100 máquinas complejas</p>
   <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
   <p class="progress-text" id="progressText">0 / 100 máquinas descubiertas</p>
@@ -392,7 +557,7 @@ body {
 
 <div class="game-container">
   <div class="panel elements-panel">
-    <div class="panel-title">🧩 Elementos Disponibles</div>
+    <div class="panel-title">🧩 Elementos</div>
     <div id="elementsList"></div>
   </div>
 
@@ -413,10 +578,9 @@ body {
             <span class="slot-label">Elemento 3</span>
           </div>
         </div>
-        <div class="actions-row">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;">
           <button class="combine-btn" id="combineBtn" onclick="tryCombine()" disabled>⚡ COMBINAR</button>
-          <button class="clear-btn" onclick="clearAll()">✕ Limpiar</button>
-          <button class="hint-btn" onclick="giveHint()">💡 Pista</button>
+          <button class="shortcut-btn" onclick="clearAll()" style="padding:8px 14px;">✕ Limpiar</button>
         </div>
       </div>
     </div>
@@ -435,13 +599,66 @@ body {
   </div>
 
   <div class="panel discovery-panel">
-    <div class="panel-title">📖 Catálogo (100 Máquinas)</div>
+    <div class="panel-title">📖 Catálogo (100)</div>
     <div class="filter-btns">
       <button class="filter-btn active" onclick="filterDiscoveries('all', this)">Todas</button>
-      <button class="filter-btn" onclick="filterDiscoveries('discovered', this)">Descubiertas</button>
-      <button class="filter-btn" onclick="filterDiscoveries('undiscovered', this)">Ocultas</button>
+      <button class="filter-btn" onclick="filterDiscoveries('discovered', this)">✓ Descubiertas</button>
+      <button class="filter-btn" onclick="filterDiscoveries('undiscovered', this)">? Ocultas</button>
     </div>
     <div id="discoveriesList"></div>
+  </div>
+</div>
+
+<!-- Bottom Shortcut Bar -->
+<div class="shortcut-bar">
+  <div class="hint-level-selector">
+    <span style="font-size:0.65rem;color:#94a3b8;margin-right:4px;">Pista:</span>
+    <button class="hint-level-btn active" onclick="setHintLevel(1, this)" title="Muestra 1 elemento">1</button>
+    <button class="hint-level-btn" onclick="setHintLevel(2, this)" title="Muestra 2 elementos">2</button>
+    <button class="hint-level-btn" onclick="setHintLevel(3, this)" title="Muestra los 3 elementos">3</button>
+  </div>
+  <button class="shortcut-btn hint" onclick="giveHint()">💡 Pista <span class="key">H</span></button>
+  <button class="shortcut-btn auto" onclick="autoSuggest()">🎯 Sugerir <span class="key">S</span></button>
+  <button class="shortcut-btn auto" onclick="autoFillNext()">⚡ Auto-llenar <span class="key">A</span></button>
+  <div class="shortcut-divider"></div>
+  <button class="shortcut-btn reveal" onclick="openRecipeBook()">📖 Recetas <span class="key">R</span></button>
+  <button class="shortcut-btn reveal" onclick="discoverRandom()">🎲 Descubrir <span class="key">D</span></button>
+  <button class="shortcut-btn reveal" onclick="discoverAll()">🏆 Todas <span class="key">T</span></button>
+  <div class="shortcut-divider"></div>
+  <button class="shortcut-btn" onclick="openShortcutsModal()">⌨️ Atajos <span class="key">?</span></button>
+  <button class="shortcut-btn danger" onclick="resetGame()">🔄 Reiniciar</button>
+</div>
+
+<!-- Recipe Book Modal -->
+<div class="modal-overlay" id="recipeModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('recipeModal')">✕ Cerrar</button>
+    <h2>📖 Libro de Recetas</h2>
+    <p style="font-size:0.8rem;color:#94a3b8;margin-bottom:10px;">Haz clic en una receta para cargarla automáticamente en la zona de combinación.</p>
+    <div class="recipe-list" id="recipeList"></div>
+  </div>
+</div>
+
+<!-- Shortcuts Modal -->
+<div class="modal-overlay" id="shortcutsModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('shortcutsModal')">✕ Cerrar</button>
+    <h2>⌨️ Atajos de Teclado</h2>
+    <p style="font-size:0.8rem;color:#94a3b8;margin-bottom:10px;">Usa estas teclas para acelerar tu juego:</p>
+    <div class="shortcuts-grid">
+      <div class="shortcut-info"><span class="s-key">H</span><span class="s-desc">Dar pista sobre máquina no descubierta</span></div>
+      <div class="shortcut-info"><span class="s-key">S</span><span class="s-desc">Sugerir combinación no descubierta</span></div>
+      <div class="shortcut-info"><span class="s-key">A</span><span class="s-desc">Auto-llenar ranuras con sugerencia</span></div>
+      <div class="shortcut-info"><span class="s-key">R</span><span class="s-desc">Abrir libro de recetas</span></div>
+      <div class="shortcut-info"><span class="s-key">D</span><span class="s-desc">Descubrir máquina aleatoria</span></div>
+      <div class="shortcut-info"><span class="s-key">T</span><span class="s-desc">Descubrir todas las máquinas</span></div>
+      <div class="shortcut-info"><span class="s-key">C</span><span class="s-desc">Combinar elementos actuales</span></div>
+      <div class="shortcut-info"><span class="s-key">X</span><span class="s-desc">Limpiar todas las ranuras</span></div>
+      <div class="shortcut-info"><span class="s-key">1-6</span><span class="s-desc">Seleccionar máquina simple</span></div>
+      <div class="shortcut-info"><span class="s-key">7-F</span><span class="s-desc">Seleccionar herramienta</span></div>
+      <div class="shortcut-info"><span class="s-key">Q-P</span><span class="s-desc">Seleccionar elemento natural</span></div>
+      <div class="shortcut-info"><span class="s-key">Esc</span><span class="s-desc">Cerrar modal / limpiar</span></div>
+    </div>
   </div>
 </div>
 
@@ -484,34 +701,36 @@ const machineImages = {
 
 const elements = {
   simple_machines: [
-    { id: 'lever', name: 'Palanca', icon: '⚖️' },
-    { id: 'pulley', name: 'Polea', icon: '' },
-    { id: 'inclined_plane', name: 'Plano Incl.', icon: '📐' },
-    { id: 'wedge', name: 'Cuña', icon: '' },
-    { id: 'screw', name: 'Tornillo', icon: '' },
-    { id: 'wheel', name: 'Rueda/Eje', icon: '☸️' },
+    { id: 'lever', name: 'Palanca' },
+    { id: 'pulley', name: 'Polea' },
+    { id: 'inclined_plane', name: 'Plano Incl.' },
+    { id: 'wedge', name: 'Cuña' },
+    { id: 'screw', name: 'Tornillo' },
+    { id: 'wheel', name: 'Rueda/Eje' },
   ],
   tools: [
-    { id: 'hammer', name: 'Martillo', icon: '🔨' },
-    { id: 'wrench', name: 'Llave', icon: '🔧' },
-    { id: 'saw', name: 'Sierra', icon: '🪚' },
-    { id: 'rope', name: 'Cuerda', icon: '🪢' },
-    { id: 'chain', name: 'Cadena', icon: '⛓️' },
-    { id: 'spring', name: 'Resorte', icon: '🌀' },
-    { id: 'piston', name: 'Pistón', icon: '🔲' },
-    { id: 'gear', name: 'Engranaje', icon: '️' },
+    { id: 'hammer', name: 'Martillo' },
+    { id: 'wrench', name: 'Llave' },
+    { id: 'saw', name: 'Sierra' },
+    { id: 'rope', name: 'Cuerda' },
+    { id: 'chain', name: 'Cadena' },
+    { id: 'spring', name: 'Resorte' },
+    { id: 'piston', name: 'Pistón' },
+    { id: 'gear', name: 'Engranaje' },
   ],
   natural: [
-    { id: 'water', name: 'Agua', icon: '💧' },
-    { id: 'wind', name: 'Viento', icon: '💨' },
-    { id: 'fire', name: 'Fuego', icon: '🔥' },
-    { id: 'earth', name: 'Tierra', icon: '' },
-    { id: 'sun', name: 'Sol', icon: '☀️' },
-    { id: 'gravity', name: 'Gravedad', icon: '🌑' },
-    { id: 'steam', name: 'Vapor', icon: '♨️' },
-    { id: 'magnetism', name: 'Magnetismo', icon: '🧲' },
+    { id: 'water', name: 'Agua' },
+    { id: 'wind', name: 'Viento' },
+    { id: 'fire', name: 'Fuego' },
+    { id: 'earth', name: 'Tierra' },
+    { id: 'sun', name: 'Sol' },
+    { id: 'gravity', name: 'Gravedad' },
+    { id: 'steam', name: 'Vapor' },
+    { id: 'magnetism', name: 'Magnetismo' },
   ]
 };
+
+const allElementsFlat = Object.values(elements).flat();
 
 const machines = [
   { id: 1, name: 'Grúa', combo: ['pulley','lever','rope'], category: 'Construcción', desc: 'Eleva cargas pesadas usando poleas y palancas con cuerda.' },
@@ -616,108 +835,46 @@ const machines = [
   { id: 100, name: 'Turbina', combo: ['wind','water','gear'], category: 'Energía', desc: 'Genera energía con fluidos en movimiento.' }
 ];
 
-// SVG generators for machines without images
 function getMachineSVG(machine) {
   const colors = {
-    'Construcción': ['#f59e0b', '#d97706'],
-    'Mecánica': ['#6b7280', '#4b5563'],
-    'Energía': ['#10b981', '#059669'],
-    'Herramienta': ['#64748b', '#475569'],
-    'Forestal': ['#84cc16', '#65a30d'],
-    'Transporte': ['#3b82f6', '#2563eb'],
-    'Precisión': ['#a78bfa', '#8b5cf6'],
-    'Industrial': ['#ef4444', '#dc2626'],
-    'Agrícola': ['#22c55e', '#16a34a'],
-    'Hidráulica': ['#06b6d4', '#0891b2'],
-    'Navegación': ['#0ea5e9', '#0284c7'],
-    'Química': ['#d946ef', '#c026d3'],
-    'Textil': ['#ec4899', '#db2777'],
-    'Seguridad': ['#f97316', '#ea580c'],
-    'Minería': ['#78716c', '#57534e'],
-    'Automotriz': ['#e11d48', '#be123c'],
-    'Recreación': ['#f472b6', '#ec4899'],
-    'Infraestructura': ['#6366f1', '#4f46e5'],
-    'Suprema': ['#fbbf24', '#f59e0b'],
-    'Comunicación': ['#8b5cf6', '#7c3aed'],
-    'Tecnología': ['#06b6d4', '#0891b2'],
-    'Aeronáutica': ['#3b82f6', '#1d4ed8'],
-    'Espacial': ['#1e1b4b', '#312e81'],
-    'Alimentaria': ['#f97316', '#ea580c'],
-    'Electrodoméstico': ['#64748b', '#475569'],
-    'Climatización': ['#0ea5e9', '#0284c7'],
-    'Avícola': ['#eab308', '#ca8a04']
+    'Construcción': ['#f59e0b', '#d97706'], 'Mecánica': ['#6b7280', '#4b5563'],
+    'Energía': ['#10b981', '#059669'], 'Herramienta': ['#64748b', '#475569'],
+    'Forestal': ['#84cc16', '#65a30d'], 'Transporte': ['#3b82f6', '#2563eb'],
+    'Precisión': ['#a78bfa', '#8b5cf6'], 'Industrial': ['#ef4444', '#dc2626'],
+    'Agrícola': ['#22c55e', '#16a34a'], 'Hidráulica': ['#06b6d4', '#0891b2'],
+    'Navegación': ['#0ea5e9', '#0284c7'], 'Química': ['#d946ef', '#c026d3'],
+    'Textil': ['#ec4899', '#db2777'], 'Seguridad': ['#f97316', '#ea580c'],
+    'Minería': ['#78716c', '#57534e'], 'Automotriz': ['#e11d48', '#be123c'],
+    'Recreación': ['#f472b6', '#ec4899'], 'Infraestructura': ['#6366f1', '#4f46e5'],
+    'Suprema': ['#fbbf24', '#f59e0b'], 'Comunicación': ['#8b5cf6', '#7c3aed'],
+    'Tecnología': ['#06b6d4', '#0891b2'], 'Aeronáutica': ['#3b82f6', '#1d4ed8'],
+    'Espacial': ['#1e1b4b', '#312e81'], 'Alimentaria': ['#f97316', '#ea580c'],
+    'Electrodoméstico': ['#64748b', '#475569'], 'Climatización': ['#0ea5e9', '#0284c7'],
+    'Avícola': ['#eab308', '#ca8a04'], 'Logística': ['#f59e0b', '#d97706']
   };
   const [c1, c2] = colors[machine.category] || ['#60a5fa', '#3b82f6'];
-  
-  const svgMap = {
-    9: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="20" y="60" width="88" height="40" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="30" y="40" width="20" height="20" fill="${c2}"/><circle cx="40" cy="50" r="8" fill="#1e293b"/><rect x="60" y="30" width="30" height="30" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M75 30 L75 15 L85 15" stroke="#94a3b8" stroke-width="3" fill="none"/><circle cx="80" cy="12" r="5" fill="#ef4444"/><rect x="10" y="100" width="20" height="15" rx="3" fill="${c2}"/><rect x="98" y="100" width="20" height="15" rx="3" fill="${c2}"/></svg>`,
-    10: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="20" width="68" height="15" rx="3" fill="${c1}"/><rect x="40" y="35" width="12" height="70" fill="${c2}"/><rect x="76" y="35" width="12" height="70" fill="${c2}"/><rect x="20" y="105" width="88" height="12" rx="3" fill="${c1}"/><rect x="45" y="50" width="38" height="30" rx="3" fill="${c2}" stroke="${c1}" stroke-width="2"/><circle cx="64" cy="65" r="10" fill="#1e293b"/></svg>`,
-    11: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="20" y="10" width="12" height="108" fill="${c2}"/><rect x="96" y="10" width="12" height="108" fill="${c2}"/><rect x="32" y="10" width="64" height="12" fill="${c1}"/><rect x="32" y="106" width="64" height="12" fill="${c1}"/><rect x="40" y="30" width="48" height="60" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="50" y="40" width="28" height="20" rx="2" fill="#1e293b"/><line x1="64" y1="22" x2="64" y2="30" stroke="#94a3b8" stroke-width="3"/></svg>`,
-    12: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="60" r="40" fill="none" stroke="${c1}" stroke-width="6"/><line x1="64" y1="20" x2="64" y2="100" stroke="${c2}" stroke-width="4"/><line x1="24" y1="60" x2="104" y2="60" stroke="${c2}" stroke-width="4"/><line x1="36" y1="32" x2="92" y2="88" stroke="${c2}" stroke-width="4"/><line x1="92" y1="32" x2="36" y2="88" stroke="${c2}" stroke-width="4"/><rect x="55" y="55" width="18" height="18" rx="3" fill="${c1}"/><path d="M104 60 Q115 70 104 80" stroke="#3b82f6" stroke-width="4" fill="none"/></svg>`,
-    13: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="30" fill="none" stroke="${c1}" stroke-width="8"/><rect x="58" y="30" width="12" height="68" fill="${c2}"/><path d="M34 64 Q50 50 64 64 Q78 78 94 64" stroke="#92400e" stroke-width="5" fill="none"/></svg>`,
-    14: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="20" y="55" width="88" height="18" rx="3" fill="${c1}"/><circle cx="35" cy="64" r="12" fill="${c2}"/><circle cx="64" cy="64" r="12" fill="${c2}"/><circle cx="93" cy="64" r="12" fill="${c2}"/><path d="M25 55 L30 45 L35 55 M40 55 L45 45 L50 55 M55 55 L60 45 L65 55 M70 55 L75 45 L80 55 M85 55 L90 45 L95 55 M100 55 L105 45 L110 55" stroke="${c2}" stroke-width="3" fill="none"/></svg>`,
-    15: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><polygon points="20,100 110,40 110,100" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="40" cy="105" r="10" fill="${c2}"/><circle cx="90" cy="105" r="10" fill="${c2}"/><rect x="70" y="30" width="25" height="20" rx="2" fill="${c2}"/></svg>`,
-    16: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="55" y="20" width="18" height="70" rx="3" fill="${c1}"/><rect x="45" y="90" width="38" height="20" rx="3" fill="${c2}"/><circle cx="64" cy="100" r="6" fill="#1e293b"/><path d="M55 30 Q45 35 55 40 Q45 45 55 50 Q45 55 55 60" stroke="${c2}" stroke-width="3" fill="none"/></svg>`,
-    17: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M10 80 Q30 60 50 75 Q70 90 90 70 Q110 50 120 65" stroke="#3b82f6" stroke-width="6" fill="none"/><rect x="20" y="75" width="15" height="35" fill="${c1}"/><rect x="50" y="70" width="15" height="40" fill="${c1}"/><rect x="80" y="65" width="15" height="45" fill="${c1}"/><rect x="105" y="60" width="15" height="50" fill="${c1}"/></svg>`,
-    18: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="40" y="30" width="48" height="70" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="50" y="40" width="28" height="20" rx="2" fill="${c2}"/><path d="M64 20 L64 30" stroke="#94a3b8" stroke-width="4"/><path d="M88 60 L110 60 L110 40" stroke="#3b82f6" stroke-width="4" fill="none"/><circle cx="110" cy="38" r="4" fill="#3b82f6"/></svg>`,
-    19: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="30" cy="30" r="15" fill="#eab308"/><line x1="30" y1="10" x2="30" y2="5" stroke="#eab308" stroke-width="3"/><line x1="10" y1="30" x2="5" y2="30" stroke="#eab308" stroke-width="3"/><line x1="50" y1="30" x2="55" y2="30" stroke="#eab308" stroke-width="3"/><rect x="50" y="50" width="60" height="50" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M60 50 L60 30 L80 30 L80 50" stroke="#ef4444" stroke-width="3" fill="none"/></svg>`,
-    20: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="45" fill="none" stroke="${c1}" stroke-width="4"/><circle cx="64" cy="64" r="35" fill="none" stroke="${c2}" stroke-width="2"/><line x1="64" y1="64" x2="64" y2="35" stroke="#ef4444" stroke-width="3"/><line x1="64" y1="64" x2="85" y2="50" stroke="#94a3b8" stroke-width="2"/><circle cx="64" cy="64" r="5" fill="${c1}"/><text x="64" y="25" text-anchor="middle" fill="#eab308" font-size="10" font-weight="bold">N</text></svg>`,
-    21: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="10" y="40" width="30" height="60" fill="${c1}"/><rect x="88" y="40" width="30" height="60" fill="${c1}"/><rect x="40" y="50" width="48" height="40" rx="3" fill="#1e293b" stroke="${c2}" stroke-width="2"/><path d="M10 100 Q64 110 118 100" stroke="#3b82f6" stroke-width="8" fill="none"/><rect x="45" y="60" width="38" height="20" rx="2" fill="${c2}"/></svg>`,
-    22: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><polygon points="20,100 110,40 110,100" fill="#e2e8f0" opacity="0.3"/><rect x="40" y="70" width="50" height="15" rx="5" fill="${c1}"/><circle cx="50" cy="90" r="8" fill="${c2}"/><circle cx="80" cy="90" r="8" fill="${c2}"/><path d="M90 75 L110 60" stroke="#92400e" stroke-width="3"/></svg>`,
-    23: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="55" y="10" width="18" height="50" fill="${c1}"/><rect x="45" y="60" width="38" height="20" rx="3" fill="${c2}"/><rect x="58" y="80" width="12" height="35" fill="${c2}"/><path d="M30 115 L98 115" stroke="#78716c" stroke-width="4"/><circle cx="64" cy="20" r="5" fill="#94a3b8"/></svg>`,
-    24: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="60" y="50" width="8" height="60" fill="${c2}"/><path d="M64 50 L30 20 M64 50 L98 20 M64 50 L20 50 M64 50 L108 50" stroke="${c1}" stroke-width="6" stroke-linecap="round"/><circle cx="64" cy="50" r="8" fill="${c1}"/><path d="M100 30 L110 20 M105 35 L115 25" stroke="#eab308" stroke-width="2"/></svg>`,
-    25: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="30" cy="30" r="12" fill="#eab308"/><path d="M40 40 L70 70" stroke="#eab308" stroke-width="2" stroke-dasharray="4"/><rect x="60" y="60" width="50" height="50" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M70 60 Q75 50 80 60 Q85 50 90 60 Q95 50 100 60" stroke="#94a3b8" stroke-width="2" fill="none"/></svg>`,
-    26: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="20" y="20" width="88" height="88" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><line x1="30" y1="30" x2="30" y2="100" stroke="${c2}" stroke-width="2"/><line x1="50" y1="30" x2="50" y2="100" stroke="${c2}" stroke-width="2"/><line x1="70" y1="30" x2="70" y2="100" stroke="${c2}" stroke-width="2"/><line x1="90" y1="30" x2="90" y2="100" stroke="${c2}" stroke-width="2"/><line x1="20" y1="40" x2="108" y2="40" stroke="#ec4899" stroke-width="1"/><line x1="20" y1="60" x2="108" y2="60" stroke="#ec4899" stroke-width="1"/><line x1="20" y1="80" x2="108" y2="80" stroke="#ec4899" stroke-width="1"/></svg>`,
-    27: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="10" y="50" width="108" height="20" rx="3" fill="${c1}"/><circle cx="25" cy="75" r="10" fill="${c2}"/><circle cx="103" cy="75" r="10" fill="${c2}"/><rect x="40" y="40" width="20" height="15" rx="2" fill="${c2}"/><rect x="70" y="42" width="15" height="13" rx="2" fill="${c2}"/></svg>`,
-    28: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M30 30 Q30 80 64 80 Q98 80 98 30" stroke="#3b82f6" stroke-width="6" fill="none"/><path d="M30 30 L30 20 M98 30 L98 20" stroke="#3b82f6" stroke-width="4"/><circle cx="64" cy="80" r="5" fill="#3b82f6"/><path d="M50 90 Q64 100 78 90" stroke="#94a3b8" stroke-width="2" fill="none"/></svg>`,
-    29: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="40" width="68" height="50" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="50" y="55" width="28" height="20" rx="3" fill="${c2}"/><circle cx="64" cy="65" r="6" fill="#1e293b"/><path d="M40 40 Q40 30 50 30 L78 30 Q88 30 88 40" stroke="${c2}" stroke-width="3" fill="none"/></svg>`,
-    30: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="40" r="20" fill="#eab308"/><path d="M30 70 L98 70 L88 110 L40 110 Z" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M40 110 L88 110" stroke="${c2}" stroke-width="3"/><circle cx="64" cy="85" r="10" fill="#ef4444" opacity="0.7"/></svg>`,
-    31: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M64 20 L64 100" stroke="${c1}" stroke-width="8"/><path d="M50 30 Q64 35 78 30 M50 45 Q64 50 78 45 M50 60 Q64 65 78 60 M50 75 Q64 80 78 75 M50 90 Q64 95 78 90" stroke="${c2}" stroke-width="3" fill="none"/><circle cx="64" cy="110" r="8" fill="#3b82f6"/></svg>`,
-    32: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="35" cy="90" r="18" fill="${c2}" stroke="${c1}" stroke-width="3"/><circle cx="95" cy="90" r="18" fill="${c2}" stroke="${c1}" stroke-width="3"/><path d="M35 90 L60 50 L90 50 L95 90" stroke="${c1}" stroke-width="5" fill="none"/><rect x="50" y="40" width="30" height="15" rx="3" fill="${c1}"/></svg>`,
-    33: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="55" y="10" width="18" height="80" fill="${c2}"/><circle cx="64" cy="25" r="12" fill="none" stroke="${c1}" stroke-width="4"/><path d="M50 90 L78 90 L75 110 L53 110 Z" fill="${c1}"/><circle cx="58" cy="100" r="3" fill="#eab308"/><circle cx="70" cy="100" r="3" fill="#eab308"/><circle cx="64" cy="105" r="3" fill="#eab308"/></svg>`,
-    34: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="50" r="25" fill="#eab308"/><line x1="64" y1="50" x2="64" y2="30" stroke="#1e293b" stroke-width="3"/><line x1="64" y1="50" x2="80" y2="55" stroke="#1e293b" stroke-width="2"/><polygon points="40,100 88,100 75,75 53,75" fill="${c1}" stroke="${c2}" stroke-width="2"/></svg>`,
-    35: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="50" width="60" height="25" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="90" y="55" width="20" height="15" rx="2" fill="${c2}"/><path d="M110 62 L120 62" stroke="#3b82f6" stroke-width="4"/><rect x="40" y="75" width="15" height="30" rx="3" fill="${c2}"/><circle cx="75" cy="62" r="5" fill="#1e293b"/></svg>`,
-    36: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M20 100 Q40 60 64 70 Q88 80 108 40" stroke="#ef4444" stroke-width="4" fill="none"/><circle cx="64" cy="70" r="15" fill="#ef4444" opacity="0.5"/><path d="M50 50 Q55 40 60 50 Q65 40 70 50 Q75 40 80 50" stroke="#f97316" stroke-width="3" fill="none"/><rect x="30" y="100" width="68" height="15" rx="3" fill="${c1}"/></svg>`,
-    37: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="80" width="68" height="25" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="45" cy="105" r="12" fill="${c2}"/><circle cx="83" cy="105" r="12" fill="${c2}"/><rect x="55" y="50" width="18" height="30" fill="${c2}"/><rect x="50" y="40" width="28" height="15" rx="3" fill="${c1}"/></svg>`,
-    38: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="35" y="40" width="58" height="60" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="64" cy="70" r="12" fill="${c2}"/><rect x="58" y="70" width="12" height="20" fill="#1e293b"/><path d="M50 50 L78 50" stroke="${c2}" stroke-width="3"/><circle cx="64" cy="50" r="4" fill="#eab308"/></svg>`,
-    39: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M20 80 Q64 90 108 80 L100 100 L28 100 Z" fill="${c1}" stroke="${c2}" stroke-width="2"/><rect x="40" y="55" width="48" height="25" rx="3" fill="${c2}"/><rect x="55" y="40" width="18" height="20" fill="${c1}"/><path d="M73 50 Q80 45 85 50" stroke="#94a3b8" stroke-width="2" fill="none"/></svg>`,
-    40: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="30" fill="none" stroke="${c1}" stroke-width="4"/><line x1="64" y1="34" x2="64" y2="94" stroke="${c2}" stroke-width="3"/><line x1="34" y1="64" x2="94" y2="64" stroke="${c2}" stroke-width="3"/><path d="M64 34 L55 20 M64 34 L73 20 M64 94 L55 108 M64 94 L73 108" stroke="#3b82f6" stroke-width="2"/><circle cx="55" cy="20" r="3" fill="#3b82f6"/><circle cx="73" cy="20" r="3" fill="#3b82f6"/></svg>`,
-    41: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="35" fill="none" stroke="${c1}" stroke-width="5"/><path d="M30 64 Q47 30 64 64 Q81 98 98 64" stroke="${c2}" stroke-width="4" fill="none"/><circle cx="64" cy="64" r="10" fill="${c1}"/><path d="M20 40 L30 50 M20 88 L30 78 M108 40 L98 50 M108 88 L98 78" stroke="#eab308" stroke-width="2"/></svg>`,
-    42: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M20 100 Q40 40 64 60 Q88 80 108 30" stroke="${c1}" stroke-width="6" fill="none"/><path d="M20 100 L108 100" stroke="${c2}" stroke-width="3"/><circle cx="40" cy="75" r="6" fill="${c2}"/><circle cx="70" cy="65" r="6" fill="${c2}"/><circle cx="95" cy="50" r="6" fill="${c2}"/></svg>`,
-    43: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="30" cy="30" r="12" fill="#eab308"/><path d="M42 42 L80 80" stroke="#eab308" stroke-width="3" stroke-dasharray="5"/><polygon points="70,70 100,70 100,100 70,100" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M75 75 L95 95 M95 75 L75 95" stroke="#ef4444" stroke-width="2"/></svg>`,
-    44: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="45" y="50" width="38" height="50" rx="5" fill="${c1}" stroke="${c2}" stroke-width="2"/><circle cx="64" cy="75" r="12" fill="${c2}"/><path d="M55 50 L55 30 M73 50 L73 30" stroke="#94a3b8" stroke-width="3"/><path d="M50 30 Q64 20 78 30" stroke="#94a3b8" stroke-width="3" fill="none"/></svg>`,
-    45: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="30" y="30" width="68" height="10" rx="3" fill="${c1}"/><line x1="64" y1="40" x2="64" y2="80" stroke="${c2}" stroke-width="4"/><polygon points="50,80 78,80 70,100 58,100" fill="${c2}"/><circle cx="64" cy="35" r="5" fill="#eab308"/></svg>`,
-    46: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="35" r="18" fill="#eab308"/><path d="M64 53 L64 75" stroke="#eab308" stroke-width="4"/><rect x="40" y="75" width="48" height="35" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M50 85 Q55 75 60 85 Q65 75 70 85 Q75 75 80 85" stroke="#ef4444" stroke-width="2" fill="none"/></svg>`,
-    47: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><rect x="10" y="60" width="108" height="40" rx="3" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M10 60 Q40 50 70 60 Q100 70 118 60" stroke="#3b82f6" stroke-width="5" fill="none"/><polygon points="30,100 50,100 40,80" fill="${c2}"/><polygon points="70,100 90,100 80,80" fill="${c2}"/></svg>`,
-    48: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><polygon points="20,40 110,40 100,100 30,100" fill="#3b82f6" opacity="0.5"/><path d="M30 40 L100 40 L90 100 L38 100 Z" fill="none" stroke="${c1}" stroke-width="3"/><path d="M40 50 Q55 55 70 50 Q85 45 95 50" stroke="#60a5fa" stroke-width="2" fill="none"/><circle cx="60" cy="70" r="8" fill="${c2}"/></svg>`,
-    49: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><path d="M40 30 L40 80 Q40 95 55 95 L73 95 Q88 95 88 80 L88 30" fill="none" stroke="${c1}" stroke-width="5"/><rect x="35" y="25" width="15" height="10" fill="#ef4444"/><rect x="78" y="25" width="15" height="10" fill="#3b82f6"/><path d="M30 50 Q20 64 30 78 M98 50 Q108 64 98 78" stroke="#eab308" stroke-width="2" fill="none"/><rect x="50" y="95" width="28" height="15" rx="2" fill="${c2}"/></svg>`,
-    50: `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><circle cx="64" cy="64" r="40" fill="none" stroke="#eab308" stroke-width="3"/><circle cx="64" cy="64" r="30" fill="none" stroke="${c1}" stroke-width="2"/><circle cx="64" cy="64" r="20" fill="${c1}" stroke="${c2}" stroke-width="2"/><path d="M64 24 L64 104 M24 64 L104 64 M35 35 L93 93 M93 35 L35 93" stroke="${c2}" stroke-width="2"/><circle cx="64" cy="64" r="8" fill="#eab308"/></svg>`
-  };
-
-  if (svgMap[machine.id]) return svgMap[machine.id];
-
-  // Generate generic SVG based on combo
   const comboIcons = machine.combo.map(c => {
-    const el = Object.values(elements).flat().find(e => e.id === c);
-    return el ? el.icon : '?';
+    const el = allElementsFlat.find(e => e.id === c);
+    return el ? el.name.charAt(0) : '?';
   });
-  
   return `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
     <rect width="128" height="128" fill="#0f172a"/>
-    <rect x="15" y="15" width="98" height="98" rx="10" fill="none" stroke="${c1}" stroke-width="2" stroke-dasharray="4"/>
-    <circle cx="64" cy="55" r="25" fill="${c1}" opacity="0.2" stroke="${c1}" stroke-width="2"/>
-    <text x="64" y="62" text-anchor="middle" fill="${c1}" font-size="24">${comboIcons[0]}</text>
-    <circle cx="40" cy="90" r="12" fill="${c2}" opacity="0.3" stroke="${c2}" stroke-width="1.5"/>
-    <text x="40" y="94" text-anchor="middle" fill="${c2}" font-size="12">${comboIcons[1]||''}</text>
-    <circle cx="88" cy="90" r="12" fill="${c2}" opacity="0.3" stroke="${c2}" stroke-width="1.5"/>
-    <text x="88" y="94" text-anchor="middle" fill="${c2}" font-size="12">${comboIcons[2]||''}</text>
-    <text x="64" y="120" text-anchor="middle" fill="#94a3b8" font-size="7" font-family="Inter">${machine.name}</text>
+    <rect x="14" y="14" width="100" height="100" rx="12" fill="none" stroke="${c1}" stroke-width="2" opacity="0.5"/>
+    <circle cx="64" cy="50" r="28" fill="${c1}" opacity="0.15" stroke="${c1}" stroke-width="2"/>
+    <text x="64" y="58" text-anchor="middle" fill="${c1}" font-size="22" font-weight="bold" font-family="Inter">${machine.name.charAt(0)}</text>
+    <rect x="25" y="85" width="22" height="22" rx="4" fill="${c2}" opacity="0.4" stroke="${c2}"/>
+    <text x="36" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold">${comboIcons[0]}</text>
+    <rect x="53" y="85" width="22" height="22" rx="4" fill="${c2}" opacity="0.4" stroke="${c2}"/>
+    <text x="64" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold">${comboIcons[1]}</text>
+    <rect x="81" y="85" width="22" height="22" rx="4" fill="${c2}" opacity="0.4" stroke="${c2}"/>
+    <text x="92" y="100" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="bold">${comboIcons[2]}</text>
   </svg>`;
 }
 
 let selectedElements = [null, null, null];
 let discoveredMachines = new Set();
 let currentFilter = 'all';
+let hintLevel = 1;
 
 function init() {
   renderElements();
@@ -739,7 +896,7 @@ function renderElements() {
     catDiv.innerHTML = `<div class="category-title">${title}</div>`;
     const grid = document.createElement('div');
     grid.className = 'element-grid';
-    elements[cat].forEach(el => {
+    elements[cat].forEach((el, idx) => {
       const btn = document.createElement('button');
       btn.className = 'element-btn';
       btn.id = `el-${el.id}`;
@@ -756,10 +913,9 @@ function selectElement(el) {
   const emptySlot = selectedElements.indexOf(null);
   if (emptySlot === -1) {
     selectedElements[0] = el;
-    updateSlots();
-    return;
+  } else {
+    selectedElements[emptySlot] = el;
   }
-  selectedElements[emptySlot] = el;
   updateSlots();
 }
 
@@ -781,8 +937,7 @@ function updateSlots() {
       if (btn) btn.classList.add('selected');
     }
   });
-  const combineBtn = document.getElementById('combineBtn');
-  combineBtn.disabled = selectedElements.some(e => e === null);
+  document.getElementById('combineBtn').disabled = selectedElements.some(e => e === null);
   document.getElementById('combinationArea').classList.toggle('active', !selectedElements.some(e => e === null));
 }
 
@@ -796,13 +951,18 @@ function clearAll() {
   updateSlots();
 }
 
+function findMachineByCombo(comboIds) {
+  const sorted = [...comboIds].sort();
+  return machines.find(m => {
+    const mCombo = [...m.combo].sort();
+    return mCombo.length === sorted.length && mCombo.every((v, i) => v === sorted[i]);
+  });
+}
+
 function tryCombine() {
   if (selectedElements.some(e => e === null)) return;
-  const comboIds = selectedElements.map(e => e.id).sort();
-  const machine = machines.find(m => {
-    const mCombo = [...m.combo].sort();
-    return mCombo.length === comboIds.length && mCombo.every((v, i) => v === comboIds[i]);
-  });
+  const comboIds = selectedElements.map(e => e.id);
+  const machine = findMachineByCombo(comboIds);
   if (machine) {
     const isNew = !discoveredMachines.has(machine.id);
     discoveredMachines.add(machine.id);
@@ -812,6 +972,8 @@ function tryCombine() {
     if (isNew) {
       showNotification(`¡Nueva máquina descubierta: ${machine.name}!`, false);
       createSparkles();
+    } else {
+      showNotification(`Ya tenías descubierta: ${machine.name}`, false);
     }
   } else {
     showNotification('Combinación no válida. ¡Intenta con otros elementos!', true);
@@ -820,12 +982,11 @@ function tryCombine() {
 }
 
 function showResult(machine, isNew) {
-  document.getElementById('resultName').textContent = `${machine.name}`;
+  document.getElementById('resultName').textContent = machine.name;
   document.getElementById('resultDesc').textContent = machine.desc;
   const catEl = document.getElementById('resultCategory');
   catEl.textContent = machine.category;
   catEl.style.display = 'inline-block';
-  
   const container = document.getElementById('resultImageContainer');
   if (machineImages[machine.id]) {
     container.innerHTML = `<img src="${machineImages[machine.id]}" alt="${machine.name}">`;
@@ -848,16 +1009,13 @@ function renderDiscoveries() {
       if (machineImages[m.id]) {
         imgHtml = `<img class="d-img" src="${machineImages[m.id]}" alt="${m.name}">`;
       } else {
-        const svg = getMachineSVG(m);
-        imgHtml = `<div class="d-img" style="display:flex;align-items:center;justify-content:center;">${svg}</div>`;
+        imgHtml = `<div class="d-img" style="display:flex;align-items:center;justify-content:center;">${getMachineSVG(m)}</div>`;
       }
     } else {
-      imgHtml = `<div class="d-img" style="display:flex;align-items:center;justify-content:center;color:#475569;font-size:16px;">?</div>`;
+      imgHtml = `<div class="d-img" style="display:flex;align-items:center;justify-content:center;color:#475569;font-size:14px;font-weight:bold;">?</div>`;
     }
     item.innerHTML = `${imgHtml}<span class="d-name">${isDiscovered ? m.name : '???'}</span>${isDiscovered ? '<span class="d-check">✓</span>' : ''}`;
-    if (isDiscovered) {
-      item.onclick = () => showResult(m, false);
-    }
+    if (isDiscovered) item.onclick = () => showResult(m, false);
     container.appendChild(item);
   });
 }
@@ -876,6 +1034,14 @@ function updateProgress() {
   document.getElementById('progressText').textContent = `${count} / 100 máquinas descubiertas`;
 }
 
+// === SHORTCUT FUNCTIONS ===
+
+function setHintLevel(level, btn) {
+  hintLevel = level;
+  document.querySelectorAll('.hint-level-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+
 function giveHint() {
   const undiscovered = machines.filter(m => !discoveredMachines.has(m.id));
   if (undiscovered.length === 0) {
@@ -883,16 +1049,183 @@ function giveHint() {
     return;
   }
   const machine = undiscovered[Math.floor(Math.random() * undiscovered.length)];
-  const randomElement = machine.combo[Math.floor(Math.random() * machine.combo.length)];
-  const elData = Object.values(elements).flat().find(e => e.id === randomElement);
-  showNotification(`💡 Pista: "${machine.name}" usa ${elData ? elData.name : randomElement}`, false);
+  const shuffled = [...machine.combo].sort(() => Math.random() - 0.5);
+  const revealed = shuffled.slice(0, hintLevel);
+  const names = revealed.map(id => {
+    const el = allElementsFlat.find(e => e.id === id);
+    return el ? el.name : id;
+  });
+  const hidden = machine.combo.length - hintLevel;
+  let msg = `💡 "${machine.name}" (${machine.category}): usa ${names.join(' + ')}`;
+  if (hidden > 0) msg += ` + ${hidden} elemento${hidden>1?'s':''} más`;
+  showNotification(msg, false, 'hint');
 }
 
-function showNotification(text, isFail) {
+function autoSuggest() {
+  const undiscovered = machines.filter(m => !discoveredMachines.has(m.id));
+  if (undiscovered.length === 0) {
+    showNotification('¡Ya descubriste todas! 🏆', false);
+    return;
+  }
+  const machine = undiscovered[Math.floor(Math.random() * undiscovered.length)];
+  selectedElements = machine.combo.map(id => allElementsFlat.find(e => e.id === id));
+  updateSlots();
+  showNotification(`🎯 Sugerencia: ${machine.name} — ¡Combina ahora!`, false, 'hint');
+}
+
+function autoFillNext() {
+  const undiscovered = machines.filter(m => !discoveredMachines.has(m.id));
+  if (undiscovered.length === 0) {
+    showNotification('¡Ya descubriste todas! 🏆', false);
+    return;
+  }
+  const machine = undiscovered[0];
+  selectedElements = machine.combo.map(id => allElementsFlat.find(e => e.id === id));
+  updateSlots();
+  showNotification(`⚡ Cargado: "${machine.name}" — Pulsa COMBINAR`, false, 'hint');
+}
+
+function discoverRandom() {
+  const undiscovered = machines.filter(m => !discoveredMachines.has(m.id));
+  if (undiscovered.length === 0) {
+    showNotification('¡Ya descubriste todas! 🏆', false);
+    return;
+  }
+  const machine = undiscovered[Math.floor(Math.random() * undiscovered.length)];
+  discoveredMachines.add(machine.id);
+  showResult(machine, true);
+  renderDiscoveries();
+  updateProgress();
+  showNotification(`🎲 ¡Descubierta: ${machine.name}!`, false);
+  createSparkles();
+}
+
+function discoverAll() {
+  if (discoveredMachines.size === 100) {
+    showNotification('¡Ya tienes todas descubiertas! 🏆', false);
+    return;
+  }
+  machines.forEach(m => discoveredMachines.add(m.id));
+  renderDiscoveries();
+  updateProgress();
+  showNotification('🏆 ¡Todas las máquinas descubiertas!', false);
+  createSparkles();
+  createSparkles();
+}
+
+function resetGame() {
+  if (!confirm('¿Reiniciar el juego? Se perderán todos los descubrimientos.')) return;
+  discoveredMachines.clear();
+  clearAll();
+  renderDiscoveries();
+  updateProgress();
+  document.getElementById('resultName').textContent = 'Selecciona elementos para combinar';
+  document.getElementById('resultDesc').textContent = 'Elige elementos del panel izquierdo y colócalos en las ranuras para crear una máquina compleja.';
+  document.getElementById('resultCategory').style.display = 'none';
+  document.getElementById('resultImageContainer').innerHTML = `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg"><rect width="128" height="128" fill="#0f172a"/><text x="64" y="60" text-anchor="middle" fill="#475569" font-size="10" font-family="Inter">Combina elementos</text><text x="64" y="75" text-anchor="middle" fill="#475569" font-size="9" font-family="Inter">para descubrir</text></svg>`;
+  showNotification('🔄 Juego reiniciado', false);
+}
+
+function openRecipeBook() {
+  const list = document.getElementById('recipeList');
+  list.innerHTML = '';
+  machines.forEach(m => {
+    const isDiscovered = discoveredMachines.has(m.id);
+    const card = document.createElement('div');
+    card.className = `recipe-card ${isDiscovered ? 'discovered' : ''}`;
+    const comboHtml = m.combo.map(id => {
+      const el = allElementsFlat.find(e => e.id === id);
+      return `<img src="${elementImages[id]}" title="${el?el.name:id}"><span class="plus">+</span>`;
+    }).join('');
+    card.innerHTML = `
+      <div class="r-name">${isDiscovered ? '✓ ' : ''}${m.name} <span style="color:#64748b;font-size:0.65rem;">#${m.id}</span></div>
+      <div class="r-combo">${comboHtml}</div>
+      <div class="r-cat">${m.category}</div>
+    `;
+    card.onclick = () => {
+      selectedElements = m.combo.map(id => allElementsFlat.find(e => e.id === id));
+      updateSlots();
+      closeModal('recipeModal');
+      showNotification(`📖 Receta cargada: ${m.name}`, false, 'hint');
+    };
+    list.appendChild(card);
+  });
+  document.getElementById('recipeModal').classList.add('show');
+}
+
+function openShortcutsModal() {
+  document.getElementById('shortcutsModal').classList.add('show');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+// === KEYBOARD SHORTCUTS ===
+document.addEventListener('keydown', (e) => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  
+  // Close modals with Escape
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.show').forEach(m => m.classList.remove('show'));
+    clearAll();
+    return;
+  }
+
+  const key = e.key.toLowerCase();
+  
+  // Main shortcuts
+  if (key === 'h') { e.preventDefault(); giveHint(); return; }
+  if (key === 's') { e.preventDefault(); autoSuggest(); return; }
+  if (key === 'a') { e.preventDefault(); autoFillNext(); return; }
+  if (key === 'r') { e.preventDefault(); openRecipeBook(); return; }
+  if (key === 'd') { e.preventDefault(); discoverRandom(); return; }
+  if (key === 't') { e.preventDefault(); discoverAll(); return; }
+  if (key === 'c') { e.preventDefault(); tryCombine(); return; }
+  if (key === 'x') { e.preventDefault(); clearAll(); return; }
+  if (key === '?') { e.preventDefault(); openShortcutsModal(); return; }
+  
+  // Number keys for elements
+  const allFlat = allElementsFlat;
+  const num = parseInt(key);
+  if (!isNaN(num) && num >= 1 && num <= 6) {
+    e.preventDefault();
+    selectElement(allFlat[num - 1]);
+    return;
+  }
+  // 7-9, 0 for tools (indices 6-9)
+  const toolMap = {'7': 6, '8': 7, '9': 8, '0': 9, 'f': 10, 'g': 11, 'v': 12, 'b': 13};
+  if (toolMap[key] !== undefined && toolMap[key] < allFlat.length) {
+    e.preventDefault();
+    selectElement(allFlat[toolMap[key]]);
+    return;
+  }
+  // q-p for natural elements (indices 14-21)
+  const natMap = {'q': 14, 'w': 15, 'e': 16, 'r': 17, 't': 18, 'y': 19, 'u': 20, 'i': 21};
+  // Avoid conflict with main shortcuts - only if shift is held
+  if (e.shiftKey && natMap[key] !== undefined && natMap[key] < allFlat.length) {
+    e.preventDefault();
+    selectElement(allFlat[natMap[key]]);
+    return;
+  }
+});
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('show');
+  });
+});
+
+function showNotification(text, isFail, type) {
   const notif = document.getElementById('notification');
   notif.textContent = text;
-  notif.className = 'notification show' + (isFail ? ' fail' : '');
-  setTimeout(() => notif.className = 'notification', 2500);
+  let cls = 'notification show';
+  if (isFail) cls += ' fail';
+  else if (type === 'hint') cls += ' hint';
+  notif.className = cls;
+  clearTimeout(notif._timeout);
+  notif._timeout = setTimeout(() => notif.className = 'notification', 3500);
 }
 
 function shakeCombination() {
@@ -903,12 +1236,12 @@ function shakeCombination() {
 }
 
 function createSparkles() {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 12; i++) {
     const sparkle = document.createElement('div');
     sparkle.className = 'sparkle';
     sparkle.textContent = ['✨','⭐','💫','🌟'][Math.floor(Math.random()*4)];
     sparkle.style.left = (Math.random() * window.innerWidth) + 'px';
-    sparkle.style.top = (Math.random() * window.innerHeight * 0.5 + 100) + 'px';
+    sparkle.style.top = (Math.random() * window.innerHeight * 0.6 + 80) + 'px';
     sparkle.style.fontSize = (Math.random() * 20 + 15) + 'px';
     document.body.appendChild(sparkle);
     setTimeout(() => sparkle.remove(), 1000);
